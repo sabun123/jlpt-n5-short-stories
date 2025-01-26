@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="mb-8">
+      <ProgressStats />
+    </div>
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-4xl font-bold">JLPT N5 Short Stories</h1>
       <UButton icon="i-heroicons-squares-2x2" @click="showGrid = !showGrid" />
@@ -63,4 +66,8 @@ const selectStory = (id: number) => {
   currentStoryId.value = id;
   showGrid.value = false;
 };
+
+onMounted(() => {
+  storyStore.startTracking();
+});
 </script>

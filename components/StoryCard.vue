@@ -57,6 +57,7 @@
                 value: idx,
               }))
             "
+            @change="handleAnswer(question.id, answers[question.id])"
           />
           <p v-if="answers[question.id] !== undefined" class="mt-2 text-sm">
             {{
@@ -103,6 +104,32 @@ watch(error, (newError) => {
       description: newError,
       color: "red",
     });
+  }
+});
+
+const emit = defineEmits<{
+  completed: [storyId: number];
+}>();
+
+const handleAnswer = (questionId: number, answer: number) => {
+  const question = props.story.questions.find((q) => q.id === questionId);
+  if (question) {
+    const correct = answer === question.correctAnswer;
+    storyStore.updateProgress(props.story.id, correct);
+  }
+};
+
+watch(answers, (newAnswers) => {
+  const allAnswered = props.story.questions.every(
+    (q) => typeof newAnswers[q.id] !== "undefined"
+  );
+  const allCorrect = props.story.questions.every(
+    (q) => newAnswers[q.id] === q.correctAnswer
+  );
+
+  if (allAnswered && allCorrect) {
+    storyStore.completeStory(props.story.id);
+    emit("completed", props.story.id);
   }
 });
 </script>
