@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-white dark:bg-gray-900">
     <TheHeader />
     <UContainer class="py-8">
       <NuxtPage />
@@ -16,5 +16,19 @@ export default {
 <style scoped>
 .container {
   max-width: 800px;
+}
+</style>
+
+<style>
+:root {
+  --bg-opacity: 1;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  @apply antialiased;
 }
 </style>
