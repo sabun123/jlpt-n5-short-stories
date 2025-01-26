@@ -2,10 +2,17 @@ import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui"],
+  modules: ["@nuxt/ui", "@pinia/nuxt", "@nuxtjs/color-mode"],
+
+  // colorMode: {
+  //   preference: "system",
+  //   fallback: "light",
+  //   classSuffix: "",
+  // },
 
   typescript: {
     strict: true,
+    // typeCheck: true,
   },
 
   app: {

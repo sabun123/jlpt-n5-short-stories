@@ -1,6 +1,7 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <UContainer>
+  <div class="min-h-screen">
+    <TheHeader />
+    <UContainer class="py-8">
       <NuxtPage />
     </UContainer>
   </div>
