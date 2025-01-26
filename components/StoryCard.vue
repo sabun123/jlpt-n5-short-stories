@@ -8,7 +8,17 @@
     </template>
 
     <div class="space-y-4">
-      <p class="text-lg leading-relaxed">{{ story.content }}</p>
+      <div class="flex items-start gap-2">
+        <p class="text-lg leading-relaxed flex-1">{{ story.content }}</p>
+        <UButton
+          v-if="isSupported"
+          icon="i-heroicons-speaker-wave"
+          color="primary"
+          variant="ghost"
+          :loading="speaking"
+          @click="playAudio(story.content)"
+        />
+      </div>
       <div class="text-sm text-gray-600">{{ story.translations.en }}</div>
 
       <div class="mt-4 p-3 bg-gray-50 rounded-lg">
@@ -70,4 +80,29 @@ const props = defineProps<{
 
 const showQuestions = ref(false);
 const answers = ref<Record<number, number>>({});
+
+const { speak, isSupported, error } = useAudio();
+const speaking = ref(false);
+
+const playAudio = async (text: string) => {
+  speaking.value = true;
+  try {
+    await speak(text);
+  } catch (e) {
+    console.error("Speech error:", e);
+  } finally {
+    speaking.value = false;
+  }
+};
+
+// Show error toast if audio is not supported
+watch(error, (newError) => {
+  if (newError) {
+    useToast().add({
+      title: "Audio Error",
+      description: newError,
+      color: "red",
+    });
+  }
+});
 </script>
