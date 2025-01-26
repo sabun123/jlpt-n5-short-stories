@@ -1,0 +1,22 @@
+{
+  "name": "jlpt-n5-short-stories",
+  "author": {
+    "name": "Yusuf Ismail bin Shukor",
+    "email": "encrypted.potato@gmail.com"
+  },
+  "description": "A collection of short stories for JLPT N5 learners",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^2.21.0"
+  },
+  "devDependencies": {
+    "nuxt": "^3.15.3"
+  }
+}
