@@ -25,10 +25,18 @@
         class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t"
       >
         <div class="text-center p-2">
-          <div class="text-lg font-bold dark:text-gray-100">
+          <div
+            class="text-lg font-bold dark:text-gray-100"
+            :class="{ 'animate-completion': isAllCompleted && isExpanded }"
+          >
             {{ stats.completedStories }}/{{ stats.totalStories }}
           </div>
-          <div class="text-xs text-gray-600 dark:text-gray-400">Completed</div>
+          <div
+            class="text-xs text-gray-600 dark:text-gray-400"
+            :class="{ 'animate-completion-text': isAllCompleted && isExpanded }"
+          >
+            Completed
+          </div>
         </div>
         <div class="text-center p-2">
           <div class="text-lg font-bold dark:text-gray-100">
@@ -57,11 +65,14 @@
       <div class="text-center p-2 md:p-4">
         <div
           class="text-xl md:text-2xl font-bold dark:text-gray-100"
-          :class="{ 'animate-completion': isAllCompleted }"
+          :class="{ 'animate-completion': isAllCompleted && isExpanded }"
         >
           {{ stats.completedStories }}/{{ stats.totalStories }}
         </div>
-        <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+        <div
+          class="text-xs md:text-sm text-gray-600 dark:text-gray-400"
+          :class="{ 'animate-completion-text': isAllCompleted && isExpanded }"
+        >
           Stories Completed
         </div>
       </div>
@@ -108,8 +119,14 @@ const expand = () => {
   isExpanded.value = true;
 };
 
+// Update collapse to handle animation state
 const collapse = () => {
   isExpanded.value = false;
+  // Optionally: wait for collapse animation to complete before stopping our animations
+  setTimeout(() => {
+    // This will trigger reactivity and stop animations
+    isExpanded.value = false;
+  }, 200);
 };
 
 // Update ref type to UCard component
@@ -161,7 +178,23 @@ function formatTime(seconds: number): string {
   }
 }
 
+@keyframes text-pulse {
+  0% {
+    color: var(--color-gray-600);
+  }
+  50% {
+    color: var(--color-primary-500);
+  }
+  100% {
+    color: var(--color-gray-600);
+  }
+}
+
 .animate-completion {
   animation: number-pulse 2s ease-in-out infinite;
+}
+
+.animate-completion-text {
+  animation: text-pulse 2s ease-in-out infinite;
 }
 </style>
