@@ -29,14 +29,23 @@
       <div class="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
         <div class="flex items-start gap-6">
           <div class="flex-1 min-w-0">
-            <h4 class="font-semibold mb-2">Focus Kanji</h4>
-            <p class="mb-2">Meaning: {{ story.focusKanji.meaning.en }}</p>
+            <h4 class="font-semibold mb-2">Focus Word</h4>
+            <p class="mb-2">Meaning: {{ story.focusWord.meaning.en }}</p>
             <div class="text-sm space-y-1">
-              <p v-if="story.focusKanji.readings.onyomi.length">
-                Onyomi: {{ story.focusKanji.readings.onyomi.join(", ") }}
-              </p>
-              <p v-if="story.focusKanji.readings.kunyomi.length">
-                Kunyomi: {{ story.focusKanji.readings.kunyomi.join(", ") }}
+              <template
+                v-if="
+                  story.focusWord.type === 'kanji' && story.focusWord.readings
+                "
+              >
+                <p v-if="story.focusWord.readings.onyomi?.length">
+                  Onyomi: {{ story.focusWord.readings.onyomi.join(", ") }}
+                </p>
+                <p v-if="story.focusWord.readings.kunyomi?.length">
+                  Kunyomi: {{ story.focusWord.readings.kunyomi.join(", ") }}
+                </p>
+              </template>
+              <p class="text-xs text-gray-500">
+                Type: {{ capitalizeFirst(story.focusWord.type) }}
               </p>
             </div>
           </div>
@@ -44,7 +53,7 @@
             <div
               class="text-5xl md:text-6xl xl:text-7xl font-bold leading-none"
             >
-              {{ story.focusKanji.kanji }}
+              {{ story.focusWord.word }}
             </div>
           </div>
         </div>
@@ -438,4 +447,8 @@ const clearCurrentOptions = () => {
 
 // Single state for progress tracking
 const progressScale = ref(0);
+
+const capitalizeFirst = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 </script>

@@ -1,3 +1,19 @@
+export type WordType = "kanji" | "hiragana" | "katakana";
+
+interface WordReading {
+  kunyomi?: string[];
+  onyomi?: string[];
+}
+
+interface FocusWord {
+  word: string;
+  type: WordType;
+  meaning: {
+    [key: string]: string;
+  };
+  readings?: WordReading; // Optional, only for kanji words
+}
+
 interface Question {
   id: number;
   question: {
@@ -18,16 +34,7 @@ export interface Story {
   translations: {
     [key: string]: string;
   };
-  focusKanji: {
-    kanji: string;
-    meaning: {
-      [key: string]: string;
-    };
-    readings: {
-      kunyomi: string[];
-      onyomi: string[];
-    };
-  };
+  focusWord: FocusWord;
   keywords: string[];
   questions: Question[];
 }
@@ -44,8 +51,9 @@ export const stories: Story[] = [
     translations: {
       en: "Once upon a time, there was a cute dog. The dog went to the park every day. At the park, it played with many friends.",
     },
-    focusKanji: {
-      kanji: "公園",
+    focusWord: {
+      word: "公園",
+      type: "kanji",
       meaning: {
         en: "park",
       },
@@ -98,8 +106,9 @@ export const stories: Story[] = [
     translations: {
       en: "My family has four people. I have a father, mother, and younger sister. We eat meals together at home every week.",
     },
-    focusKanji: {
-      kanji: "家族",
+    focusWord: {
+      word: "家族",
+      type: "kanji",
       meaning: {
         en: "family",
       },
