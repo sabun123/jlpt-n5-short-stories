@@ -136,20 +136,39 @@
           </div>
 
           <div class="flex justify-between">
-            <UButton
-              icon="i-heroicons-arrow-left"
-              :disabled="currentQuestionIndex === 0"
-              @click="previousQuestion"
+            <UTooltip
+              text="This is the first question"
+              :ui="{ width: 'w-auto' }"
+              :disabled="currentQuestionIndex > 0"
             >
-              Previous
-            </UButton>
-            <UButton
-              icon-right="i-heroicons-arrow-right"
-              :disabled="currentQuestionIndex >= story.questions.length - 1"
-              @click="nextQuestion"
+              <UButton
+                icon="i-heroicons-arrow-left"
+                :disabled="currentQuestionIndex === 0"
+                :color="currentQuestionIndex > 0 ? 'primary' : 'gray'"
+                @click="previousQuestion"
+              >
+                Previous
+              </UButton>
+            </UTooltip>
+
+            <UTooltip
+              text="This is the last question"
+              :ui="{ width: 'w-auto' }"
+              :disabled="currentQuestionIndex < story.questions.length - 1"
             >
-              Next
-            </UButton>
+              <UButton
+                icon-right="i-heroicons-arrow-right"
+                :disabled="currentQuestionIndex >= story.questions.length - 1"
+                :color="
+                  currentQuestionIndex < story.questions.length - 1
+                    ? 'primary'
+                    : 'gray'
+                "
+                @click="nextQuestion"
+              >
+                Next
+              </UButton>
+            </UTooltip>
           </div>
         </div>
       </div>
