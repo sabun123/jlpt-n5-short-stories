@@ -155,4 +155,101 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 3,
+    title: {
+      jp: "わたしの いちにち",
+      en: "My Daily Routine",
+    },
+    content:
+      "わたしは たいてい しちじに おきます。あさごはんを たべて、はちじに いえを でます。たいてい でんしゃで かいしゃに いきます。",
+    translations: {
+      en: "I usually wake up at 7 o'clock. I eat breakfast and leave home at 8 o'clock. I usually go to work by train.",
+    },
+    focusWord: {
+      word: "たいてい",
+      type: "hiragana",
+      meaning: {
+        en: "mostly, usually",
+      },
+    },
+    keywords: ["たいてい", "おきます", "でんしゃ"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What time does the person usually wake up?",
+          jp: "その人は たいてい 何時に 起きますか。",
+        },
+        options: {
+          en: ["7 o'clock", "6 o'clock", "8 o'clock", "9 o'clock"],
+          jp: ["七時", "六時", "八時", "九時"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "How does the person usually go to work?",
+          jp: "その人は たいてい どうやって 会社に 行きますか。",
+        },
+        options: {
+          en: ["By train", "By bus", "By car", "By bicycle"],
+          jp: ["電車で", "バスで", "車で", "自転車で"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: {
+      jp: "おんがくの みせ",
+      en: "The Music Store",
+    },
+    content:
+      "わたしは ふるい レコードが すきです。にちようびに レコードの みせに いきます。その みせには たくさんの レコードが あります。",
+    translations: {
+      en: "I like old records. On Sundays, I go to a record store. That store has many records.",
+    },
+    focusWord: {
+      word: "レコード",
+      type: "katakana",
+      meaning: {
+        en: "record",
+      },
+    },
+    keywords: ["レコード", "みせ", "すき"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What kind of records does the person like?",
+          jp: "その人は どんな レコードが 好きですか。",
+        },
+        options: {
+          en: ["Old records", "New records", "Jazz records", "Pop records"],
+          jp: [
+            "古い レコード",
+            "新しい レコード",
+            "ジャズの レコード",
+            "ポップの レコード",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "When does the person go to the record store?",
+          jp: "その人は いつ レコードの 店に 行きますか。",
+        },
+        options: {
+          en: ["On Sundays", "On Saturdays", "On Mondays", "On Fridays"],
+          jp: ["日曜日に", "土曜日に", "月曜日に", "金曜日に"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
