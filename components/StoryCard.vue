@@ -290,4 +290,23 @@ watch(
   },
   { deep: true }
 );
+
+const resetAnswers = () => {
+  answers.value = {};
+  currentQuestionIndex.value = 0;
+  showQuestions.value = false;
+};
+
+// Add a watch for story changes to reset state
+watch(
+  () => props.story.id,
+  () => {
+    resetAnswers();
+  }
+);
+
+// When component is mounted, ensure clean state
+onMounted(() => {
+  resetAnswers();
+});
 </script>
