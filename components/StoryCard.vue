@@ -10,9 +10,10 @@
 
     <div class="space-y-4">
       <div class="flex items-start gap-2">
-        <p class="text-lg leading-relaxed flex-1 dark:text-gray-100">
-          {{ story.content }}
-        </p>
+        <p
+          class="text-lg leading-relaxed flex-1 dark:text-gray-100"
+          v-html="highlightedContent"
+        />
         <UButton
           v-if="isSupported"
           icon="i-heroicons-speaker-wave"
@@ -249,6 +250,16 @@ const playAudio = async (text: string) => {
   }
 };
 
+// Update the highlighting method to use text color
+const highlightedContent = computed(() => {
+  const word = props.story.focusWord.word;
+  const regex = new RegExp(`(${word})`, "g");
+  return props.story.content.replace(
+    regex,
+    '<span class="text-primary-500 dark:text-primary-400 font-medium">$1</span>'
+  );
+});
+
 // Update watch handlers
 watch(error, (newError) => {
   if (newError) {
@@ -452,3 +463,7 @@ const capitalizeFirst = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 </script>
+
+<style>
+/* Remove previous highlight styles */
+</style>
