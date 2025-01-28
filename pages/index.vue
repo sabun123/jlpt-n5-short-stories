@@ -1,7 +1,42 @@
 <template>
   <div>
-    <div class="mb-8">
-      <ProgressStats ref="progressStats" />
+    <!-- Replace the top progress stats section with navigation row on mobile -->
+    <div class="flex items-center gap-4 mb-8">
+      <UTooltip
+        text="No previous story available"
+        :ui="{ width: 'w-auto' }"
+        :disabled="hasPreviousStory"
+        class="md:hidden"
+      >
+        <UButton
+          icon="i-heroicons-arrow-left"
+          :disabled="!hasPreviousStory"
+          :color="hasPreviousStory ? 'primary' : 'gray'"
+          @click="handlePreviousStory"
+        />
+      </UTooltip>
+
+      <div class="flex-1">
+        <ProgressStats ref="progressStats" />
+      </div>
+
+      <UTooltip
+        text="No more stories available"
+        :ui="{ width: 'w-auto' }"
+        :disabled="hasNextStory"
+        class="md:hidden"
+      >
+        <UButton
+          ref="nextButtonMobile"
+          icon="i-heroicons-arrow-right"
+          :disabled="!hasNextStory"
+          :color="hasNextStory ? 'primary' : 'gray'"
+          :class="{
+            'animate-border': isCurrentStoryCompleted && hasNextStory,
+          }"
+          @click="handleNextStory"
+        />
+      </UTooltip>
     </div>
 
     <div v-if="showGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -25,8 +60,9 @@
       </UCard>
     </div>
 
+    <!-- Hide navigation buttons in story view on mobile since they're at the top now -->
     <div v-else>
-      <div class="flex justify-between mb-4">
+      <div class="hidden md:flex justify-between mb-4">
         <UTooltip
           text="No previous story available"
           :ui="{ width: 'w-auto' }"
@@ -46,7 +82,7 @@
           :disabled="hasNextStory"
         >
           <UButton
-            ref="nextButton"
+            ref="nextButtonDesktop"
             icon="i-heroicons-arrow-right"
             :disabled="!hasNextStory"
             :color="hasNextStory ? 'primary' : 'gray'"
@@ -95,7 +131,8 @@ const isCurrentStoryCompleted = computed(() =>
     : false
 );
 
-const nextButton = ref<InstanceType<typeof UButton> | null>(null);
+const nextButtonMobile = ref<InstanceType<typeof UButton> | null>(null);
+const nextButtonDesktop = ref<InstanceType<typeof UButton> | null>(null);
 const progressStats = ref<ProgressStatsExposed | null>(null);
 
 const handleStoryCompletion = (storyId: number) => {
@@ -105,15 +142,23 @@ const handleStoryCompletion = (storyId: number) => {
       progressStats.value?.expand();
 
       // Smooth scroll and focus
-      if (hasNextStory.value && nextButton.value?.$el) {
-        nextButton.value.$el.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        // Focus after scroll animation completes
-        setTimeout(() => {
-          nextButton.value?.$el.focus();
-        }, 500);
+      if (hasNextStory.value) {
+        // Get the appropriate button based on viewport
+        const targetButton =
+          window.innerWidth < 768
+            ? nextButtonMobile.value
+            : nextButtonDesktop.value;
+
+        if (targetButton?.$el) {
+          targetButton.$el.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          // Focus after scroll animation completes
+          setTimeout(() => {
+            targetButton.$el.focus();
+          }, 500);
+        }
       }
     }
   });

@@ -1,15 +1,13 @@
 <template>
   <UCard class="dark:bg-gray-800">
-    <!-- Mobile View -->
+    <!-- Mobile View - More compact -->
     <div class="md:hidden">
-      <!-- Make header area more obviously clickable -->
       <button
-        class="w-full flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-800/50"
+        class="w-full flex items-center justify-between py-1 hover:bg-gray-50 dark:hover:bg-gray-800/50"
         @click="isExpanded = !isExpanded"
       >
         <div class="flex items-center gap-2">
-          <div class="font-bold">Progress</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">
+          <div class="text-sm font-bold">
             {{ Math.round(progressPercentage) }}% Complete
           </div>
         </div>
