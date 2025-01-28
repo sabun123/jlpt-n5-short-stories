@@ -93,9 +93,13 @@ export const useStoryStore = defineStore("stories", () => {
     startTime.value = new Date();
   }
 
-  // Add getter for story completion status
+  // Update the isStoryCompleted function to check both arrays
   const isStoryCompleted = (storyId: number) => {
-    return progress.value.completed.includes(storyId);
+    const storyProgress = progress.value.stories[storyId];
+    return (
+      progress.value.completed.includes(storyId) ||
+      (storyProgress && storyProgress.completed)
+    );
   };
 
   const stats = computed(() => ({

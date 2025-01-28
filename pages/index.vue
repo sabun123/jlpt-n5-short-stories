@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, nextTick } from "vue";
 import { stories } from "~/data/stories";
 import { useStoryStore } from "~/stores/stories";
 
@@ -87,8 +87,20 @@ const hasPreviousStory = computed(() => currentStoryId.value > 1);
 const hasNextStory = computed(() => currentStoryId.value < stories.length);
 
 const isCurrentStoryCompleted = computed(() =>
-  currentStory.value ? isCompleted(currentStory.value.id) : false
+  currentStory.value
+    ? storyStore.isStoryCompleted(currentStory.value.id)
+    : false
 );
+
+const handleStoryCompletion = (storyId: number) => {
+  // Force reactivity update
+  nextTick(() => {
+    if (currentStory.value && currentStory.value.id === storyId) {
+      // This will trigger the animation if there's a next story
+      console.log("Story completed:", storyId, "Animation should trigger");
+    }
+  });
+};
 
 onMounted(() => {
   storyStore.startTracking();
@@ -98,17 +110,21 @@ onMounted(() => {
 <style>
 @keyframes border-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(var(--color-primary-500), 0.4);
+    box-shadow: 0 0 0 0 rgb(var(--color-primary-500) / 0.7);
+    border-color: rgb(var(--color-primary-500));
   }
   70% {
-    box-shadow: 0 0 0 6px rgba(var(--color-primary-500), 0);
+    box-shadow: 0 0 0 10px rgb(var(--color-primary-500) / 0);
+    border-color: rgb(var(--color-primary-500) / 0.3);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(var(--color-primary-500), 0);
+    box-shadow: 0 0 0 0 rgb(var(--color-primary-500) / 0);
+    border-color: rgb(var(--color-primary-500));
   }
 }
 
 .animate-border {
-  animation: border-pulse 2s infinite;
+  animation: border-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border: 2px solid transparent;
 }
 </style>

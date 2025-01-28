@@ -129,7 +129,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, nextTick } from "vue";
 import { useAudio } from "~/composables/useAudio";
 import { useStoryStore } from "~/stores/stories";
 import type { Story } from "~/data/stories";
@@ -194,7 +194,11 @@ watch(
 
     if (allAnswered && allCorrect) {
       storyStore.completeStory(props.story.id);
-      emit("completed", props.story.id);
+
+      // Force the emit to happen after store update
+      nextTick(() => {
+        emit("completed", props.story.id);
+      });
 
       toast.add({
         title: "Story Completed!",
