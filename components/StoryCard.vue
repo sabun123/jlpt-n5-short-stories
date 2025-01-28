@@ -123,15 +123,32 @@
 
             <div
               v-if="answers[currentQuestion.id] !== undefined"
-              class="mt-4 p-2 rounded bg-gray-100 dark:bg-gray-700"
+              class="mt-4 p-2 rounded bg-gray-100 dark:bg-gray-700 relative overflow-hidden"
             >
-              <p class="text-sm dark:text-gray-100">
+              <p class="text-sm dark:text-gray-100 relative z-10">
                 {{
                   answers[currentQuestion.id] === currentQuestion.correctAnswer
-                    ? "✅ Correct! Press next to continue."
+                    ? "✅ Correct! Next question incoming..."
                     : "❌ Not quite right. Try again!"
                 }}
               </p>
+              <!-- Simplified progress bar implementation -->
+              <div
+                v-if="
+                  answers[currentQuestion.id] ===
+                    currentQuestion.correctAnswer &&
+                  currentQuestionIndex < story.questions.length - 1
+                "
+                class="absolute bottom-0 left-0 right-0 h-1 bg-primary-500/20"
+              >
+                <div
+                  class="h-full w-full bg-primary-500 origin-left"
+                  :style="{
+                    transform: `scaleX(${progressScale})`,
+                    transition: 'transform 1.5s linear',
+                  }"
+                />
+              </div>
             </div>
           </div>
 
@@ -342,11 +359,19 @@ watch(
   (newAnswers) => {
     const currentQ = currentQuestion.value;
     if (currentQ && newAnswers[currentQ.id] === currentQ.correctAnswer) {
-      setTimeout(() => {
-        if (currentQuestionIndex.value < props.story.questions.length - 1) {
+      if (currentQuestionIndex.value < props.story.questions.length - 1) {
+        // Reset and start progress animation
+        progressScale.value = 0;
+        // Force a reflow
+        requestAnimationFrame(() => {
+          progressScale.value = 1;
+        });
+
+        setTimeout(() => {
           nextQuestion();
-        }
-      }, 1500);
+          progressScale.value = 0;
+        }, 1500);
+      }
     }
   },
   { deep: true }
@@ -384,5 +409,9 @@ function shuffleArray<T>(array: T[]): T[] {
 // Clear options when moving to next/prev question
 const clearCurrentOptions = () => {
   currentQuestionOptions.value = [];
+  progressScale.value = 0;
 };
+
+// Single state for progress tracking
+const progressScale = ref(0);
 </script>
