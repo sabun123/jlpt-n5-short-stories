@@ -66,6 +66,7 @@
 
         <div v-if="showQuestions" class="space-y-6">
           <div
+            ref="questionsSection"
             v-if="currentQuestion"
             class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
           >
@@ -325,10 +326,19 @@ const currentQuestion = computed(() => {
   return question;
 });
 
+const questionsSection = ref<HTMLElement | null>(null);
+
 const toggleQuestions = () => {
   showQuestions.value = !showQuestions.value;
   if (showQuestions.value) {
     currentQuestionIndex.value = 0;
+    // Wait for DOM update then scroll
+    nextTick(() => {
+      questionsSection.value?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
   }
 };
 
