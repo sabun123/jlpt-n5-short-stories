@@ -45,9 +45,20 @@
     <template #footer>
       <div class="space-y-4">
         <div class="flex justify-between items-center">
-          <UButton color="primary" @click="toggleQuestions">
-            {{ showQuestions ? "Hide Questions" : "Show Questions" }}
-          </UButton>
+          <div class="flex gap-2 items-center">
+            <UButton color="primary" @click="toggleQuestions">
+              {{ showQuestions ? "Hide Questions" : "Show Questions" }}
+            </UButton>
+            <UButton
+              v-if="showQuestions"
+              size="sm"
+              color="gray"
+              variant="ghost"
+              @click="showTranslations = !showTranslations"
+            >
+              {{ showTranslations ? "Hide EN" : "Show EN" }}
+            </UButton>
+          </div>
           <p class="text-sm text-gray-600 dark:text-gray-400">
             Question {{ currentQuestionIndex + 1 }}/{{ story.questions.length }}
           </p>
@@ -59,47 +70,50 @@
             class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
           >
             <div class="mb-4">
-              <p class="font-medium mb-2 dark:text-gray-100">
-                {{ currentQuestion.question.en }}
-              </p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">
+              <p class="font-medium mb-1 text-lg dark:text-gray-100">
                 {{ currentQuestion.question.jp }}
+              </p>
+              <p
+                v-if="showTranslations"
+                class="text-sm text-gray-600 dark:text-gray-400"
+              >
+                {{ currentQuestion.question.en }}
               </p>
             </div>
 
             <div class="space-y-2">
               <div
-                v-for="(option, idx) in currentQuestion.options.en"
+                v-for="(option, idx) in currentQuestionOptions"
                 :key="idx"
                 class="flex items-center gap-2 p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
                 :class="{
                   'bg-green-100 dark:bg-green-900':
-                    answers[currentQuestion.id] === idx &&
-                    idx === currentQuestion.correctAnswer,
+                    answers[currentQuestion.id] === option.originalIndex &&
+                    option.originalIndex === currentQuestion.correctAnswer,
                   'bg-red-100 dark:bg-red-900':
-                    answers[currentQuestion.id] === idx &&
-                    idx !== currentQuestion.correctAnswer,
-                  'opacity-50':
-                    answers[currentQuestion.id] !== undefined &&
-                    answers[currentQuestion.id] !== idx,
+                    answers[currentQuestion.id] === option.originalIndex &&
+                    option.originalIndex !== currentQuestion.correctAnswer,
                 }"
-                @click="selectAnswer(currentQuestion.id, idx)"
+                @click="selectAnswer(currentQuestion.id, option.originalIndex)"
               >
                 <div class="flex-1">
-                  <p class="dark:text-gray-100">{{ option }}</p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ currentQuestion.options.jp[idx] }}
+                  <p class="dark:text-gray-100 font-medium">{{ option.jp }}</p>
+                  <p
+                    v-if="showTranslations"
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    {{ option.en }}
                   </p>
                 </div>
                 <UIcon
-                  v-if="answers[currentQuestion.id] === idx"
+                  v-if="answers[currentQuestion.id] === option.originalIndex"
                   :name="
-                    idx === currentQuestion.correctAnswer
+                    option.originalIndex === currentQuestion.correctAnswer
                       ? 'i-heroicons-check-circle'
                       : 'i-heroicons-x-circle'
                   "
                   :class="
-                    idx === currentQuestion.correctAnswer
+                    option.originalIndex === currentQuestion.correctAnswer
                       ? 'text-green-500'
                       : 'text-red-500'
                   "
@@ -250,9 +264,30 @@ const selectAnswer = (questionId: number, answer: number) => {
   }
 };
 
-const currentQuestion = computed(
-  () => props.story.questions[currentQuestionIndex.value]
-);
+// Add type for question options
+type QuestionOption = {
+  en: string;
+  jp: string;
+  originalIndex: number;
+};
+
+const showTranslations = ref(false); // Changed to false by default
+const currentQuestionOptions = ref<QuestionOption[]>([]);
+
+// Update shuffleArray usage in computed
+const currentQuestion = computed(() => {
+  const question = props.story.questions[currentQuestionIndex.value];
+  if (question && !currentQuestionOptions.value.length) {
+    currentQuestionOptions.value = shuffleArray(
+      question.options.en.map((en, idx) => ({
+        en: question.options.en[idx],
+        jp: question.options.jp[idx],
+        originalIndex: idx,
+      }))
+    );
+  }
+  return question;
+});
 
 const toggleQuestions = () => {
   showQuestions.value = !showQuestions.value;
@@ -263,12 +298,14 @@ const toggleQuestions = () => {
 
 const nextQuestion = () => {
   if (currentQuestionIndex.value < props.story.questions.length - 1) {
+    clearCurrentOptions();
     currentQuestionIndex.value++;
   }
 };
 
 const previousQuestion = () => {
   if (currentQuestionIndex.value > 0) {
+    clearCurrentOptions();
     currentQuestionIndex.value--;
   }
 };
@@ -314,4 +351,19 @@ watch(
 onMounted(() => {
   resetAnswers();
 });
+
+// Add shuffle function
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+// Clear options when moving to next/prev question
+const clearCurrentOptions = () => {
+  currentQuestionOptions.value = [];
+};
 </script>
