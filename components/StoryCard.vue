@@ -14,21 +14,26 @@
           class="text-lg leading-relaxed flex-1 dark:text-gray-100"
           v-html="highlightedContent"
         />
-        <UTooltip :text="isPlaying ? 'Stop Audio' : 'Play Audio'">
+        <div class="flex flex-col gap-2">
           <UButton
-            v-if="isSupported"
-            :icon="
-              isPlaying
-                ? 'i-heroicons-stop-circle-solid'
-                : 'i-heroicons-speaker-wave'
-            "
-            :color="isPlaying ? 'red' : 'primary'"
+            v-if="isSupported && !isPlaying"
+            icon="i-heroicons-play-circle"
+            color="primary"
             variant="ghost"
             :loading="speaking"
-            :class="{ 'animate-pulse': isPlaying }"
-            @click="toggleAudio"
+            @click="startAudio"
+            tooltip="Play Audio"
           />
-        </UTooltip>
+          <UButton
+            v-if="isSupported && isPlaying"
+            icon="i-heroicons-stop-circle"
+            color="red"
+            variant="ghost"
+            class="animate-pulse"
+            @click="stopAudio"
+            tooltip="Stop Audio"
+          />
+        </div>
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-400">
         {{ story.translations.en }}
@@ -246,13 +251,7 @@ const answers = ref<Record<number, number>>({});
 const { speak, stop, isSupported, error, isPlaying } = useAudio();
 const speaking = ref(false);
 
-const toggleAudio = async () => {
-  if (isPlaying.value) {
-    stop();
-    speaking.value = false;
-    return;
-  }
-
+const startAudio = async () => {
   speaking.value = true;
   try {
     await speak(props.story.content);
@@ -266,6 +265,11 @@ const toggleAudio = async () => {
   } finally {
     speaking.value = false;
   }
+};
+
+const stopAudio = () => {
+  stop();
+  speaking.value = false;
 };
 
 // Update the highlighting method to use text color
