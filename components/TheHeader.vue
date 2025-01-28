@@ -3,16 +3,27 @@
     <UContainer>
       <div class="flex items-center justify-between h-16">
         <NuxtLink to="/" class="text-xl font-bold">JLPT N5 Stories</NuxtLink>
-        <UButton
-          :icon="
-            colorMode.value === 'dark' ? 'i-heroicons-moon' : 'i-heroicons-sun'
-          "
-          color="gray"
-          variant="ghost"
-          @click="
-            colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-          "
-        />
+        <div class="flex gap-2">
+          <UButton
+            :icon="
+              colorMode.value === 'dark'
+                ? 'i-heroicons-moon'
+                : 'i-heroicons-sun'
+            "
+            color="gray"
+            variant="ghost"
+            @click="
+              colorMode.preference =
+                colorMode.value === 'dark' ? 'light' : 'dark'
+            "
+          />
+          <UButton
+            icon="i-heroicons-squares-2x2"
+            :color="showGrid ? 'primary' : 'gray'"
+            variant="ghost"
+            @click="toggleGrid"
+          />
+        </div>
       </div>
     </UContainer>
   </header>
@@ -20,4 +31,5 @@
 
 <script setup lang="ts">
 const colorMode = useColorMode();
+const { toggleGrid, showGrid } = useLayout();
 </script>

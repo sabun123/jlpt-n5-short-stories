@@ -3,10 +3,6 @@
     <div class="mb-8">
       <ProgressStats />
     </div>
-    <div class="flex justify-between items-center mb-8">
-      <h1 class="text-4xl font-bold">JLPT N5 Short Stories</h1>
-      <UButton icon="i-heroicons-squares-2x2" @click="showGrid = !showGrid" />
-    </div>
 
     <div v-if="showGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <UCard
@@ -53,11 +49,11 @@
 
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { stories } from "~/data/stories";
 import { useStoryStore } from "~/stores/stories";
 
-const showGrid = ref(false);
+const { showGrid } = useLayout();
 const storyStore = useStoryStore();
 const { currentStoryId, currentStory, progress } = storeToRefs(storyStore);
 const { nextStory, previousStory, markAsCompleted } = storyStore;

@@ -8,6 +8,11 @@
   </div>
 </template>
 
+<script setup>
+import { createLayout } from "~/composables/useLayout";
+const layout = createLayout();
+</script>
+
 <script>
 export default {
   name: "App",
