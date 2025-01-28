@@ -4,6 +4,7 @@
     <UContainer class="py-8">
       <NuxtPage />
     </UContainer>
+    <UNotifications />
   </div>
 </template>
 

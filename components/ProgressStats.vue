@@ -25,11 +25,12 @@
       </div>
       <div class="text-center p-4">
         <UProgress
-          :model-value="(stats.completedStories / stats.totalStories) * 100"
+          :model-value="progressPercentage"
           color="primary"
+          class="mb-2"
         />
-        <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-          Overall Progress
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+          {{ Math.round(progressPercentage) }}% Complete
         </div>
       </div>
     </div>
@@ -37,10 +38,16 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { computed } from "vue";
 import { useStoryStore } from "~/stores/stories";
 
 const storyStore = useStoryStore();
 const { stats } = storeToRefs(storyStore);
+
+const progressPercentage = computed(
+  () => (stats.value.completedStories / stats.value.totalStories) * 100
+);
 
 function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600);

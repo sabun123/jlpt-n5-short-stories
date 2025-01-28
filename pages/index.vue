@@ -52,6 +52,8 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { ref, onMounted } from "vue";
 import { stories } from "~/data/stories";
 import { useStoryStore } from "~/stores/stories";
 

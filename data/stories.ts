@@ -9,7 +9,7 @@ interface Question {
   correctAnswer: number;
 }
 
-interface Story {
+export interface Story {
   id: number;
   title: {
     [key: string]: string;

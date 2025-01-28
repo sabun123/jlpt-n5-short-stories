@@ -63,6 +63,19 @@ export const useStoryStore = defineStore("stories", () => {
   }
 
   function completeStory(storyId: number) {
+    if (!progress.value.stories[storyId]) {
+      progress.value.stories[storyId] = {
+        id: storyId,
+        completed: false,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        timeSpent: 0,
+      };
+    }
+
+    const storyProgress = progress.value.stories[storyId];
+    storyProgress.completed = true; // Add this line to mark story as completed
+
     if (!progress.value.completed.includes(storyId)) {
       progress.value.completed.push(storyId);
 
@@ -70,11 +83,19 @@ export const useStoryStore = defineStore("stories", () => {
         const timeSpent = Math.floor(
           (new Date().getTime() - startTime.value.getTime()) / 1000
         );
-        progress.value.stories[storyId].timeSpent += timeSpent;
+        storyProgress.timeSpent += timeSpent;
         progress.value.totalTimeSpent += timeSpent;
       }
     }
+
+    // Reset timer for next story
+    startTime.value = new Date();
   }
+
+  // Add getter for story completion status
+  const isStoryCompleted = (storyId: number) => {
+    return progress.value.completed.includes(storyId);
+  };
 
   const stats = computed(() => ({
     totalStories: stories.length,
@@ -99,5 +120,6 @@ export const useStoryStore = defineStore("stories", () => {
     startTracking,
     updateProgress,
     completeStory,
+    isStoryCompleted,
   };
 });

@@ -1,4 +1,5 @@
 <template>
+  <UNotifications />
   <UCard>
     <template #header>
       <div class="space-y-1">
@@ -128,7 +129,13 @@
 </template>
 
 <script setup lang="ts">
-import { Story } from "~/data/stories";
+import { ref, computed, watch, onMounted } from "vue";
+import { useAudio } from "~/composables/useAudio";
+import { useStoryStore } from "~/stores/stories";
+import type { Story } from "~/data/stories";
+
+const toast = useToast();
+const storyStore = useStoryStore(); // Move store initialization to the top
 
 const props = defineProps<{
   story: Story;
@@ -151,10 +158,10 @@ const playAudio = async (text: string) => {
   }
 };
 
-// Show error toast if audio is not supported
+// Update watch handlers
 watch(error, (newError) => {
   if (newError) {
-    useToast().add({
+    toast.add({
       title: "Audio Error",
       description: newError,
       color: "red",
@@ -185,6 +192,13 @@ watch(answers, (newAnswers) => {
   if (allAnswered && allCorrect) {
     storyStore.completeStory(props.story.id);
     emit("completed", props.story.id);
+
+    toast.add({
+      title: "Story Completed!",
+      description: "Great job! You can now move to the next story.",
+      timeout: 3000,
+      color: "green",
+    });
   }
 });
 
@@ -195,10 +209,11 @@ const questionsCompleted = computed(
 );
 
 const selectAnswer = (questionId: number, answer: number) => {
+  const question = props.story.questions.find((q) => q.id === questionId);
   // Only allow selection if not already answered correctly
   if (
     answers.value[questionId] === undefined ||
-    answers.value[questionId] !== question.correctAnswer
+    (question && answers.value[questionId] !== question.correctAnswer)
   ) {
     answers.value[questionId] = answer;
     handleAnswer(questionId, answer);
