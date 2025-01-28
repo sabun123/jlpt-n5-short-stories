@@ -1,9 +1,10 @@
 <template>
-  <div class="min-h-screen bg-white dark:bg-gray-900">
+  <div class="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
     <TheHeader />
-    <UContainer class="py-8">
+    <UContainer class="py-4 flex-1">
       <NuxtPage />
     </UContainer>
+    <TheFooter />
     <UNotifications />
   </div>
 </template>
