@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-8">
-      <ProgressStats />
+      <ProgressStats ref="progressStats" />
     </div>
 
     <div v-if="showGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -36,7 +36,7 @@
             icon="i-heroicons-arrow-left"
             :disabled="!hasPreviousStory"
             :color="hasPreviousStory ? 'primary' : 'gray'"
-            @click="previousStory"
+            @click="handlePreviousStory"
           />
         </UTooltip>
 
@@ -46,28 +46,31 @@
           :disabled="hasNextStory"
         >
           <UButton
+            ref="nextButton"
             icon="i-heroicons-arrow-right"
             :disabled="!hasNextStory"
             :color="hasNextStory ? 'primary' : 'gray'"
             :class="{
               'animate-border': isCurrentStoryCompleted && hasNextStory,
             }"
-            @click="nextStory"
+            @click="handleNextStory"
           />
         </UTooltip>
       </div>
       <StoryCard
         v-if="currentStory"
         :story="currentStory"
-        @completed="markAsCompleted(currentStory.id)"
+        @completed="handleStoryCompletion"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { ProgressStatsExposed } from "~/types/components";
+import type { UButton } from "#components"; // Add this import
 import { storeToRefs } from "pinia";
-import { onMounted, computed, nextTick } from "vue";
+import { onMounted, computed, nextTick, ref } from "vue";
 import { stories } from "~/data/stories";
 import { useStoryStore } from "~/stores/stories";
 
@@ -92,14 +95,38 @@ const isCurrentStoryCompleted = computed(() =>
     : false
 );
 
+const nextButton = ref<InstanceType<typeof UButton> | null>(null);
+const progressStats = ref<ProgressStatsExposed | null>(null);
+
 const handleStoryCompletion = (storyId: number) => {
-  // Force reactivity update
   nextTick(() => {
     if (currentStory.value && currentStory.value.id === storyId) {
-      // This will trigger the animation if there's a next story
-      console.log("Story completed:", storyId, "Animation should trigger");
+      // Show progress stats
+      progressStats.value?.expand();
+
+      // Smooth scroll and focus
+      if (hasNextStory.value && nextButton.value?.$el) {
+        nextButton.value.$el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        // Focus after scroll animation completes
+        setTimeout(() => {
+          nextButton.value?.$el.focus();
+        }, 500);
+      }
     }
   });
+};
+
+const handleNextStory = () => {
+  progressStats.value?.collapse();
+  nextStory();
+};
+
+const handlePreviousStory = () => {
+  progressStats.value?.collapse();
+  previousStory();
 };
 
 onMounted(() => {

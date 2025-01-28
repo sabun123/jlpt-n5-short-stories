@@ -101,6 +101,20 @@ import { useStoryStore } from "~/stores/stories";
 
 const isExpanded = ref(false);
 
+// Add methods to control expansion
+const expand = () => {
+  isExpanded.value = true;
+};
+
+const collapse = () => {
+  isExpanded.value = false;
+};
+
+defineExpose({
+  expand,
+  collapse,
+});
+
 const storyStore = useStoryStore();
 const { stats } = storeToRefs(storyStore);
 
