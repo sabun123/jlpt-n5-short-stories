@@ -27,17 +27,26 @@
       </div>
 
       <div class="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <h4 class="font-semibold mb-2">
-          Focus Kanji: {{ story.focusKanji.kanji }}
-        </h4>
-        <p>Meaning: {{ story.focusKanji.meaning.en }}</p>
-        <div class="text-sm">
-          <p v-if="story.focusKanji.readings.onyomi.length">
-            Onyomi: {{ story.focusKanji.readings.onyomi.join(", ") }}
-          </p>
-          <p v-if="story.focusKanji.readings.kunyomi.length">
-            Kunyomi: {{ story.focusKanji.readings.kunyomi.join(", ") }}
-          </p>
+        <div class="flex items-start gap-6">
+          <div class="flex-1 min-w-0">
+            <h4 class="font-semibold mb-2">Focus Kanji</h4>
+            <p class="mb-2">Meaning: {{ story.focusKanji.meaning.en }}</p>
+            <div class="text-sm space-y-1">
+              <p v-if="story.focusKanji.readings.onyomi.length">
+                Onyomi: {{ story.focusKanji.readings.onyomi.join(", ") }}
+              </p>
+              <p v-if="story.focusKanji.readings.kunyomi.length">
+                Kunyomi: {{ story.focusKanji.readings.kunyomi.join(", ") }}
+              </p>
+            </div>
+          </div>
+          <div class="flex-none w-24 md:w-32 flex items-center justify-center">
+            <div
+              class="text-5xl md:text-6xl xl:text-7xl font-bold leading-none"
+            >
+              {{ story.focusKanji.kanji }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
