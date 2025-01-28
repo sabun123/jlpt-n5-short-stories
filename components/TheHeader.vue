@@ -5,6 +5,12 @@
         <NuxtLink to="/" class="text-xl font-bold">JLPT N5 Stories</NuxtLink>
         <div class="flex gap-2">
           <UButton
+            icon="i-heroicons-information-circle"
+            color="gray"
+            variant="ghost"
+            @click="showInfo = true"
+          />
+          <UButton
             :icon="
               colorMode.value === 'dark'
                 ? 'i-heroicons-moon'
@@ -26,10 +32,12 @@
         </div>
       </div>
     </UContainer>
+    <InfoModal v-model="showInfo" />
   </header>
 </template>
 
 <script setup lang="ts">
 const colorMode = useColorMode();
 const { toggleGrid, showGrid } = useLayout();
+const showInfo = ref(false);
 </script>
