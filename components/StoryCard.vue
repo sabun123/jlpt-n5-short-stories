@@ -14,14 +14,21 @@
           class="text-lg leading-relaxed flex-1 dark:text-gray-100"
           v-html="highlightedContent"
         />
-        <UButton
-          v-if="isSupported"
-          icon="i-heroicons-speaker-wave"
-          color="primary"
-          variant="ghost"
-          :loading="speaking"
-          @click="playAudio(story.content)"
-        />
+        <UTooltip :text="isPlaying ? 'Stop Audio' : 'Play Audio'">
+          <UButton
+            v-if="isSupported"
+            :icon="
+              isPlaying
+                ? 'i-heroicons-stop-circle-solid'
+                : 'i-heroicons-speaker-wave'
+            "
+            :color="isPlaying ? 'red' : 'primary'"
+            variant="ghost"
+            :loading="speaking"
+            :class="{ 'animate-pulse': isPlaying }"
+            @click="toggleAudio"
+          />
+        </UTooltip>
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-400">
         {{ story.translations.en }}
@@ -236,15 +243,26 @@ const currentQuestionIndex = ref(0);
 const showQuestions = ref(false);
 const answers = ref<Record<number, number>>({});
 
-const { speak, isSupported, error } = useAudio();
+const { speak, stop, isSupported, error, isPlaying } = useAudio();
 const speaking = ref(false);
 
-const playAudio = async (text: string) => {
+const toggleAudio = async () => {
+  if (isPlaying.value) {
+    stop();
+    speaking.value = false;
+    return;
+  }
+
   speaking.value = true;
   try {
-    await speak(text);
+    await speak(props.story.content);
   } catch (e) {
     console.error("Speech error:", e);
+    toast.add({
+      title: "Audio Error",
+      description: "Could not play audio. Please try again.",
+      color: "red",
+    });
   } finally {
     speaking.value = false;
   }
@@ -466,4 +484,18 @@ const capitalizeFirst = (str: string): string => {
 
 <style>
 /* Remove previous highlight styles */
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
 </style>
