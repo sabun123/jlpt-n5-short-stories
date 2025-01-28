@@ -74,8 +74,9 @@ export const useStoryStore = defineStore("stories", () => {
     }
 
     const storyProgress = progress.value.stories[storyId];
-    storyProgress.completed = true; // Add this line to mark story as completed
+    storyProgress.completed = true;
 
+    // Ensure we don't add duplicate entries
     if (!progress.value.completed.includes(storyId)) {
       progress.value.completed.push(storyId);
 

@@ -181,42 +181,53 @@ const handleAnswer = (questionId: number, answer: number) => {
   }
 };
 
-watch(answers, (newAnswers) => {
-  const allAnswered = props.story.questions.every(
-    (q) => typeof newAnswers[q.id] !== "undefined"
-  );
-  const allCorrect = props.story.questions.every(
-    (q) => newAnswers[q.id] === q.correctAnswer
-  );
+// Replace the existing watch with this updated version
+watch(
+  () => Object.values(answers.value),
+  () => {
+    const allAnswered = props.story.questions.every(
+      (q) => typeof answers.value[q.id] !== "undefined"
+    );
+    const allCorrect = props.story.questions.every(
+      (q) => answers.value[q.id] === q.correctAnswer
+    );
 
-  if (allAnswered && allCorrect) {
-    storyStore.completeStory(props.story.id);
-    emit("completed", props.story.id);
+    if (allAnswered && allCorrect) {
+      storyStore.completeStory(props.story.id);
+      emit("completed", props.story.id);
 
-    toast.add({
-      title: "Story Completed!",
-      description: "Great job! You can now move to the next story.",
-      timeout: 3000,
-      color: "green",
-    });
+      toast.add({
+        title: "Story Completed!",
+        description: "Great job! You can now move to the next story.",
+        timeout: 3000,
+        color: "green",
+      });
+    }
+  },
+  { deep: true }
+);
+
+// Update the selectAnswer function to ensure immediate state update
+const selectAnswer = (questionId: number, answer: number) => {
+  const question = props.story.questions.find((q) => q.id === questionId);
+  if (!question) return;
+
+  // Only allow selection if not already answered correctly
+  if (
+    answers.value[questionId] === undefined ||
+    answers.value[questionId] !== question.correctAnswer
+  ) {
+    answers.value = {
+      ...answers.value,
+      [questionId]: answer,
+    };
+    handleAnswer(questionId, answer);
   }
-});
+};
 
 const questionsCompleted = computed(
   () =>
     props.story.questions.filter((q) => answers.value[q.id] === q.correctAnswer)
       .length
 );
-
-const selectAnswer = (questionId: number, answer: number) => {
-  const question = props.story.questions.find((q) => q.id === questionId);
-  // Only allow selection if not already answered correctly
-  if (
-    answers.value[questionId] === undefined ||
-    (question && answers.value[questionId] !== question.correctAnswer)
-  ) {
-    answers.value[questionId] = answer;
-    handleAnswer(questionId, answer);
-  }
-};
 </script>
