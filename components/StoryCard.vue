@@ -148,6 +148,7 @@ import { ref, computed, watch, onMounted, nextTick } from "vue";
 import { useAudio } from "~/composables/useAudio";
 import { useStoryStore } from "~/stores/stories";
 import type { Story } from "~/data/stories";
+import { stories } from "~/data/stories";
 
 const toast = useToast();
 const storyStore = useStoryStore(); // Move store initialization to the top
@@ -197,6 +198,8 @@ const handleAnswer = (questionId: number, answer: number) => {
   }
 };
 
+const isLastStory = computed(() => props.story.id === stories.length);
+
 // Replace the existing watch with this updated version
 watch(
   () => Object.values(answers.value),
@@ -214,13 +217,15 @@ watch(
       // Force the emit to happen after store update
       nextTick(() => {
         emit("completed", props.story.id);
-      });
 
-      toast.add({
-        title: "Story Completed!",
-        description: "Great job! You can now move to the next story.",
-        timeout: 3000,
-        color: "green",
+        toast.add({
+          title: isLastStory.value ? "Congratulations! 🎉" : "Story Completed!",
+          description: isLastStory.value
+            ? "You've completed all the stories! Great work on your Japanese learning journey!"
+            : "Great job! You can now move to the next story.",
+          timeout: isLastStory.value ? 5000 : 3000,
+          color: isLastStory.value ? "primary" : "primary", // Use valid color
+        });
       });
     }
   },

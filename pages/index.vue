@@ -141,9 +141,11 @@ const handleStoryCompletion = (storyId: number) => {
       // Show progress stats
       progressStats.value?.expand();
 
-      // Smooth scroll and focus
-      if (hasNextStory.value) {
-        // Get the appropriate button based on viewport
+      if (storyId === stories.length) {
+        // Final story completed - focus on stats
+        progressStats.value?.scrollIntoView();
+      } else if (hasNextStory.value) {
+        // Normal completion - focus on next button
         const targetButton =
           window.innerWidth < 768
             ? nextButtonMobile.value
@@ -154,7 +156,6 @@ const handleStoryCompletion = (storyId: number) => {
             behavior: "smooth",
             block: "center",
           });
-          // Focus after scroll animation completes
           setTimeout(() => {
             targetButton.$el.focus();
           }, 500);

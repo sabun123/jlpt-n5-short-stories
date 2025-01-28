@@ -1,5 +1,5 @@
 <template>
-  <UCard class="dark:bg-gray-800">
+  <UCard class="dark:bg-gray-800" ref="statsCard">
     <!-- Mobile View - More compact -->
     <div class="md:hidden">
       <button
@@ -55,7 +55,10 @@
     <!-- Desktop View -->
     <div class="hidden md:grid md:grid-cols-4 md:gap-4">
       <div class="text-center p-2 md:p-4">
-        <div class="text-xl md:text-2xl font-bold dark:text-gray-100">
+        <div
+          class="text-xl md:text-2xl font-bold dark:text-gray-100"
+          :class="{ 'animate-completion': isAllCompleted }"
+        >
           {{ stats.completedStories }}/{{ stats.totalStories }}
         </div>
         <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
@@ -96,6 +99,7 @@
 import { storeToRefs } from "pinia";
 import { computed, ref } from "vue";
 import { useStoryStore } from "~/stores/stories";
+import type { UCard } from "#components";
 
 const isExpanded = ref(false);
 
@@ -108,9 +112,25 @@ const collapse = () => {
   isExpanded.value = false;
 };
 
+// Update ref type to UCard component
+const statsCard = ref<InstanceType<typeof UCard> | null>(null);
+const isAllCompleted = computed(
+  () => stats.value.completedStories === stats.value.totalStories
+);
+
+const scrollIntoView = () => {
+  if (statsCard.value?.$el) {
+    statsCard.value.$el.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+};
+
 defineExpose({
   expand,
   collapse,
+  scrollIntoView,
 });
 
 const storyStore = useStoryStore();
@@ -126,3 +146,22 @@ function formatTime(seconds: number): string {
   return `${hours}h ${minutes}m`;
 }
 </script>
+
+<style>
+@keyframes number-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+    color: var(--color-primary-500);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-completion {
+  animation: number-pulse 2s ease-in-out infinite;
+}
+</style>
