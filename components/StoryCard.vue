@@ -45,63 +45,61 @@
     <template #footer>
       <div class="space-y-4">
         <div class="flex justify-between items-center">
-          <UButton color="primary" @click="showQuestions = !showQuestions">
+          <UButton color="primary" @click="toggleQuestions">
             {{ showQuestions ? "Hide Questions" : "Show Questions" }}
           </UButton>
           <p class="text-sm text-gray-600 dark:text-gray-400">
-            {{ questionsCompleted }}/{{ story.questions.length }} Questions
-            Completed
+            Question {{ currentQuestionIndex + 1 }}/{{ story.questions.length }}
           </p>
         </div>
 
         <div v-if="showQuestions" class="space-y-6">
           <div
-            v-for="question in story.questions"
-            :key="question.id"
+            v-if="currentQuestion"
             class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg"
           >
             <div class="mb-4">
               <p class="font-medium mb-2 dark:text-gray-100">
-                {{ question.question.en }}
+                {{ currentQuestion.question.en }}
               </p>
               <p class="text-sm text-gray-600 dark:text-gray-400">
-                {{ question.question.jp }}
+                {{ currentQuestion.question.jp }}
               </p>
             </div>
 
             <div class="space-y-2">
               <div
-                v-for="(option, idx) in question.options.en"
+                v-for="(option, idx) in currentQuestion.options.en"
                 :key="idx"
                 class="flex items-center gap-2 p-2 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
                 :class="{
                   'bg-green-100 dark:bg-green-900':
-                    answers[question.id] === idx &&
-                    idx === question.correctAnswer,
+                    answers[currentQuestion.id] === idx &&
+                    idx === currentQuestion.correctAnswer,
                   'bg-red-100 dark:bg-red-900':
-                    answers[question.id] === idx &&
-                    idx !== question.correctAnswer,
+                    answers[currentQuestion.id] === idx &&
+                    idx !== currentQuestion.correctAnswer,
                   'opacity-50':
-                    answers[question.id] !== undefined &&
-                    answers[question.id] !== idx,
+                    answers[currentQuestion.id] !== undefined &&
+                    answers[currentQuestion.id] !== idx,
                 }"
-                @click="selectAnswer(question.id, idx)"
+                @click="selectAnswer(currentQuestion.id, idx)"
               >
                 <div class="flex-1">
                   <p class="dark:text-gray-100">{{ option }}</p>
                   <p class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ question.options.jp[idx] }}
+                    {{ currentQuestion.options.jp[idx] }}
                   </p>
                 </div>
                 <UIcon
-                  v-if="answers[question.id] === idx"
+                  v-if="answers[currentQuestion.id] === idx"
                   :name="
-                    idx === question.correctAnswer
+                    idx === currentQuestion.correctAnswer
                       ? 'i-heroicons-check-circle'
                       : 'i-heroicons-x-circle'
                   "
                   :class="
-                    idx === question.correctAnswer
+                    idx === currentQuestion.correctAnswer
                       ? 'text-green-500'
                       : 'text-red-500'
                   "
@@ -110,17 +108,34 @@
             </div>
 
             <div
-              v-if="answers[question.id] !== undefined"
+              v-if="answers[currentQuestion.id] !== undefined"
               class="mt-4 p-2 rounded bg-gray-100 dark:bg-gray-700"
             >
               <p class="text-sm dark:text-gray-100">
                 {{
-                  answers[question.id] === question.correctAnswer
-                    ? "✅ Correct! Let's continue to the next question."
+                  answers[currentQuestion.id] === currentQuestion.correctAnswer
+                    ? "✅ Correct! Press next to continue."
                     : "❌ Not quite right. Try again!"
                 }}
               </p>
             </div>
+          </div>
+
+          <div class="flex justify-between">
+            <UButton
+              icon="i-heroicons-arrow-left"
+              :disabled="currentQuestionIndex === 0"
+              @click="previousQuestion"
+            >
+              Previous
+            </UButton>
+            <UButton
+              icon-right="i-heroicons-arrow-right"
+              :disabled="currentQuestionIndex >= story.questions.length - 1"
+              @click="nextQuestion"
+            >
+              Next
+            </UButton>
           </div>
         </div>
       </div>
@@ -141,6 +156,7 @@ const props = defineProps<{
   story: Story;
 }>();
 
+const currentQuestionIndex = ref(0);
 const showQuestions = ref(false);
 const answers = ref<Record<number, number>>({});
 
@@ -229,9 +245,49 @@ const selectAnswer = (questionId: number, answer: number) => {
   }
 };
 
+const currentQuestion = computed(
+  () => props.story.questions[currentQuestionIndex.value]
+);
+
+const toggleQuestions = () => {
+  showQuestions.value = !showQuestions.value;
+  if (showQuestions.value) {
+    currentQuestionIndex.value = 0;
+  }
+};
+
+const nextQuestion = () => {
+  if (currentQuestionIndex.value < props.story.questions.length - 1) {
+    currentQuestionIndex.value++;
+  }
+};
+
+const previousQuestion = () => {
+  if (currentQuestionIndex.value > 0) {
+    currentQuestionIndex.value--;
+  }
+};
+
+// Update questionsCompleted computed
 const questionsCompleted = computed(
   () =>
     props.story.questions.filter((q) => answers.value[q.id] === q.correctAnswer)
       .length
+);
+
+// When an answer is correct, automatically move to next question after a delay
+watch(
+  () => answers.value,
+  (newAnswers) => {
+    const currentQ = currentQuestion.value;
+    if (currentQ && newAnswers[currentQ.id] === currentQ.correctAnswer) {
+      setTimeout(() => {
+        if (currentQuestionIndex.value < props.story.questions.length - 1) {
+          nextQuestion();
+        }
+      }, 1500);
+    }
+  },
+  { deep: true }
 );
 </script>
