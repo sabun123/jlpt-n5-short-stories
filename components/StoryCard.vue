@@ -97,14 +97,19 @@
                 }"
                 @click="selectAnswer(currentQuestion.id, option.originalIndex)"
               >
-                <div class="flex-1">
-                  <p class="dark:text-gray-100 font-medium">{{ option.jp }}</p>
-                  <p
-                    v-if="showTranslations"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    {{ option.en }}
-                  </p>
+                <div class="flex items-center gap-3 flex-1">
+                  <span class="text-gray-400 dark:text-gray-500">•</span>
+                  <div class="flex-1">
+                    <p class="dark:text-gray-100 font-medium">
+                      {{ option.jp }}
+                    </p>
+                    <p
+                      v-if="showTranslations"
+                      class="text-sm text-gray-600 dark:text-gray-400"
+                    >
+                      {{ option.en }}
+                    </p>
+                  </div>
                 </div>
                 <UIcon
                   v-if="answers[currentQuestion.id] === option.originalIndex"
