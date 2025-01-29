@@ -252,4 +252,135 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 5,
+    title: {
+      jp: "たいてい の あさ",
+      en: "Most Mornings",
+    },
+    content:
+      "たいてい は げつようびに おきます。あさごはんを たべて、じゅうにふんに いえを でます。たいてい は きょうも いい びより なんだって。",
+    translations: {
+      en: "I usually wake up on Mondays. I eat breakfast and leave home at 12 minutes past the hour. Usually, today is also going to be a good day.",
+    },
+    focusWord: {
+      word: "たいてい",
+      type: "hiragana",
+      meaning: {
+        en: "mostly, usually",
+      },
+    },
+    keywords: ["たいてい", "おきます", "びより"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "On which day does the person usually wake up?",
+          jp: "その人は たいてい どの 日に 起きますか。",
+        },
+        options: {
+          en: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          jp: ["月曜日", "火曜日", "水曜日", "木曜日"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What does the person usually think about today?",
+          jp: "その人は たいてい 今日について どう 思いますか。",
+        },
+        options: {
+          en: [
+            "It will be a good day",
+            "It will be a bad day",
+            "It will rain",
+            "It will be cold",
+          ],
+          jp: ["いい びより だ", "悪い びより だ", "雨が ふる", "寒い"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: {
+      jp: "わたしの りょこう",
+      en: "My Travel",
+    },
+    content:
+      "わたしは たいてい なつやすみに りょこうに いきます。きのう、わたしたちは しんかんせんで おおさかに いきました。いま、わたしたちは おおさかで たのしく あそんで います。あした、わたしたちは たいてい ふるさとに かえります。",
+    translations: {
+      en: "I usually travel during the summer vacation. Yesterday, we went to Osaka by Shinkansen. Now, we are having fun in Osaka. Tomorrow, we usually return home.",
+    },
+    focusWord: {
+      word: "たいてい",
+      type: "hiragana",
+      meaning: {
+        en: "mostly, usually",
+      },
+    },
+    keywords: ["たいてい", "りょこう", "しんかんせん"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "When does the person usually travel?",
+          jp: "その人は たいてい いつ りょこうに いきますか。",
+        },
+        options: {
+          en: [
+            "During summer vacation",
+            "During winter vacation",
+            "During spring break",
+            "During autumn break",
+          ],
+          jp: ["なつやすみに", "ふゆやすみに", "はる休みに", "あき休みに"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "How did they go to Osaka yesterday?",
+          jp: "きのう、彼らは どうやって おおさかに 行きましたか。",
+        },
+        options: {
+          en: ["By Shinkansen", "By airplane", "By car", "By bus"],
+          jp: ["しんかんせんで", "ひこうきで", "くるまで", "バスで"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Where are they now?",
+          jp: "今、彼らは どこに いますか。",
+        },
+        options: {
+          en: ["In Osaka", "At home", "In Tokyo", "In Kyoto"],
+          jp: ["おおさかに", "いえに", "とうきょうに", "きょうとに"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "What will they do tomorrow?",
+          jp: "あした、彼らは たいてい どうしますか。",
+        },
+        options: {
+          en: ["Return home", "Go shopping", "Visit a museum", "Stay in Osaka"],
+          jp: [
+            "ふるさとに かえる",
+            "かいものに いく",
+            "びじゅつかんに いく",
+            "おおさかに とまる",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
