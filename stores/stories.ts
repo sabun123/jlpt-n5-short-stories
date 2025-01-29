@@ -114,6 +114,11 @@ export const useStoryStore = defineStore("stories", () => {
     totalTimeSpent: progress.value.totalTimeSpent,
   }));
 
+  const uniqueVocabularyCount = computed(() => {
+    const uniqueWords = new Set(stories.map((story) => story.focusWord.word));
+    return uniqueWords.size;
+  });
+
   return {
     currentStoryId,
     currentStory,
@@ -126,5 +131,6 @@ export const useStoryStore = defineStore("stories", () => {
     updateProgress,
     completeStory,
     isStoryCompleted,
+    uniqueVocabularyCount,
   };
 });

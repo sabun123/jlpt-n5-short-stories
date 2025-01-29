@@ -43,6 +43,34 @@
     </div>
 
     <div v-if="showGrid" class="relative">
+      <div class="mb-6 flex gap-4">
+        <div
+          class="flex-1 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
+        >
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            Total <br />
+            Words
+          </div>
+          <div
+            class="mt-1 text-2xl font-semibold text-primary-500 dark:text-primary-400"
+          >
+            {{ uniqueVocabularyCount }}
+          </div>
+        </div>
+        <div
+          class="flex-1 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-center"
+        >
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            Total <br />
+            Stories
+          </div>
+          <div
+            class="mt-1 text-2xl font-semibold text-primary-500 dark:text-primary-400"
+          >
+            {{ stories.length }}
+          </div>
+        </div>
+      </div>
       <!-- Add fade effect at bottom of scrollable area -->
       <div
         class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none"
@@ -167,7 +195,8 @@ type BadgeColor = "gray" | "red" | "blue" | "green" | undefined;
 
 const { showGrid } = useLayout();
 const storyStore = useStoryStore();
-const { currentStoryId, currentStory, progress } = storeToRefs(storyStore);
+const { currentStoryId, currentStory, progress, uniqueVocabularyCount } =
+  storeToRefs(storyStore);
 const { nextStory, previousStory, markAsCompleted } = storyStore;
 
 const isCompleted = (id: number) => progress.value.completed.includes(id);
