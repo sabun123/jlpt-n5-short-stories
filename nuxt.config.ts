@@ -1,5 +1,3 @@
-import { defineNuxtConfig } from "nuxt/config";
-
 // Remove type augmentation as it's now in types/nuxt.d.ts
 export default defineNuxtConfig({
   devtools: { enabled: true },
