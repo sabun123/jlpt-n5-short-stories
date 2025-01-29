@@ -282,10 +282,11 @@
 </template>
 
 <script setup lang="ts">
+import type { BadgeColor } from "#ui/types";
 import { ref, computed, watch, onMounted, nextTick } from "vue";
 import { useAudio } from "~/composables/useAudio";
 import { useStoryStore } from "~/stores/stories";
-import type { Story } from "~/data/stories";
+import type { Story, WordType } from "~/data/stories";
 import { stories } from "~/data/stories";
 
 const toast = useToast();
