@@ -288,6 +288,52 @@ const textContent = ref<HTMLElement | null>(null);
 const currentWordStart = ref(-1);
 const currentWordEnd = ref(-1);
 
+// Add a new function to handle initial focus word highlighting
+const highlightFocusWord = (text: string) => {
+  // Escape any special RegExp characters in the focus word
+  const escapedWord = props.story.focusWord.word.replace(
+    /[.*+?^${}()|[\]\\]/g,
+    "\\$&"
+  );
+  // Create a RegExp that matches the whole word
+  const wordRegex = new RegExp(escapedWord, "g");
+  return text.replace(
+    wordRegex,
+    `<span class="text-primary-500 dark:text-primary-400 font-medium">${props.story.focusWord.word}</span>`
+  );
+};
+
+// Update highlightCurrentWord to not handle focus word
+const highlightCurrentWord = () => {
+  if (!textContent.value || currentWordStart.value === -1) return;
+
+  // First, get the raw text content
+  const text = props.story.content;
+
+  // Split the text and apply focus word highlighting to each part
+  const before = text.slice(0, currentWordStart.value);
+  const current = text.slice(currentWordStart.value, currentWordEnd.value);
+  const after = text.slice(currentWordEnd.value);
+
+  // Apply both focus word highlighting and speech highlighting
+  const fullHighlightedText = `${highlightFocusWord(
+    before
+  )}<span class="bg-primary-100 dark:bg-primary-900/50">${highlightFocusWord(
+    current
+  )}</span>${highlightFocusWord(after)}`;
+
+  textContent.value.innerHTML = fullHighlightedText;
+};
+
+// Update onMounted to highlight focus word immediately
+onMounted(() => {
+  resetAnswers();
+  if (textContent.value) {
+    textContent.value.innerHTML = highlightFocusWord(props.story.content);
+  }
+});
+
+// Update startAudio and stopAudio to preserve focus word highlighting
 const startAudio = async () => {
   speaking.value = true;
   try {
@@ -309,9 +355,9 @@ const startAudio = async () => {
       });
     }
 
-    // Reset text before starting
+    // Reset text before starting, preserving focus word highlight
     if (textContent.value) {
-      textContent.value.textContent = props.story.content;
+      textContent.value.innerHTML = highlightFocusWord(props.story.content);
     }
 
     await speak(props.story.content, (start, end) => {
@@ -330,9 +376,9 @@ const startAudio = async () => {
     speaking.value = false;
     currentWordStart.value = -1;
     currentWordEnd.value = -1;
-    // Reset text when done
+    // Reset text when done, preserving focus word highlight
     if (textContent.value) {
-      textContent.value.textContent = props.story.content;
+      textContent.value.innerHTML = highlightFocusWord(props.story.content);
     }
   }
 };
@@ -340,30 +386,17 @@ const startAudio = async () => {
 const stopAudio = () => {
   stop();
   speaking.value = false;
-  // Reset text when stopped
   if (textContent.value) {
-    textContent.value.textContent = props.story.content;
+    textContent.value.innerHTML = highlightFocusWord(props.story.content);
   }
   currentWordStart.value = -1;
   currentWordEnd.value = -1;
 };
 
-// Add debugging to highlight function
-const highlightCurrentWord = () => {
-  if (!textContent.value || currentWordStart.value === -1) return;
-
-  const text = props.story.content;
-  const before = text.slice(0, currentWordStart.value);
-  const current = text.slice(currentWordStart.value, currentWordEnd.value);
-  const after = text.slice(currentWordEnd.value);
-
-  textContent.value.innerHTML = `${before}<span class="bg-primary-100 dark:bg-primary-900/50 font-medium">${current}</span>${after}`;
-};
-
 // Reset text when audio stops
 watch(isPlaying, (playing) => {
   if (!playing && textContent.value) {
-    textContent.value.textContent = props.story.content;
+    textContent.value.innerHTML = highlightFocusWord(props.story.content);
   }
 });
 
@@ -540,12 +573,24 @@ watch(
   () => props.story.id,
   () => {
     resetAnswers();
+    nextTick(() => {
+      if (textContent.value) {
+        textContent.value.innerHTML = highlightFocusWord(props.story.content);
+      }
+    });
   }
 );
 
 // When component is mounted, ensure clean state
 onMounted(() => {
   resetAnswers();
+  if (textContent.value) {
+    const text = props.story.content;
+    textContent.value.innerHTML = text.replace(
+      props.story.focusWord.word,
+      `<span class="text-primary-500 dark:text-primary-400">${props.story.focusWord.word}</span>`
+    );
+  }
 });
 
 // Add shuffle function
