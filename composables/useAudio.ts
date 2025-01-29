@@ -114,38 +114,42 @@ export const useAudio = () => {
       currentWordIndex.value = -1;
       isSpeaking.value = true; // Set speaking to true when starting
 
-      // Create separate utterances for each word
-      const utterances = words.map((word, index) => {
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.voice = selectedVoice.value!;
-        utterance.lang = "ja-JP";
-
-        // Adjust rate based on browser
-        utterance.rate = isSafari.value ? 0.7 : 0.8;
-
-        // Set word boundary handlers
-        utterance.onstart = () => {
-          isSpeaking.value = true;
-          currentWordIndex.value = index;
-          onWordChange?.(index);
-        };
-
-        utterance.onend = () => {
-          // Only set speaking to false if this is the last utterance
-          if (index === words.length - 1) {
-            isSpeaking.value = false;
-            currentWordIndex.value = -1;
-            onWordChange?.(-1);
+      // Filter out non-speakable items and create utterances
+      const utterances = words
+        .map((word, index) => {
+          // Skip punctuation and whitespace
+          if (/^[、。\s]$/.test(word)) {
+            return null;
           }
-        };
 
-        return utterance;
-      });
+          const utterance = new SpeechSynthesisUtterance(word);
+          utterance.voice = selectedVoice.value!;
+          utterance.lang = "ja-JP";
+          utterance.rate = isSafari.value ? 0.7 : 0.8;
 
-      // Queue all utterances
-      utterances.forEach((utterance) => {
-        synth.value!.speak(utterance);
-      });
+          utterance.onstart = () => {
+            isSpeaking.value = true;
+            currentWordIndex.value = index;
+            onWordChange?.(index);
+          };
+
+          utterance.onend = () => {
+            if (index === words.length - 1) {
+              isSpeaking.value = false;
+              currentWordIndex.value = -1;
+              onWordChange?.(-1);
+            }
+          };
+
+          return utterance;
+        })
+        .filter(
+          (utterance): utterance is SpeechSynthesisUtterance =>
+            utterance !== null
+        );
+
+      // Queue valid utterances
+      utterances.forEach((utterance) => synth.value!.speak(utterance));
 
       return new Promise((resolve, reject) => {
         const lastUtterance = utterances[utterances.length - 1];
