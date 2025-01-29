@@ -1,8 +1,13 @@
+import { defineAppConfig } from "nuxt/app";
+
 export default defineAppConfig({
   ui: {
+    primary: "green",
     notifications: {
-      // Show toasts at the top right of the screen
-      position: "top-0 right-0",
+      position: "top-right",
+    },
+    icons: {
+      dynamic: true,
     },
   },
 });
