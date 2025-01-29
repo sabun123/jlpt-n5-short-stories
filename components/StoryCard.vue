@@ -63,7 +63,8 @@
       </div>
 
       <div class="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <div class="flex items-start">
+        <!-- Make parent flex container take full height and expand -->
+        <div class="flex items-stretch h-full">
           <!-- Left side with fixed width and wrapping -->
           <div class="w-1/3 shrink-0">
             <h4 class="font-semibold mb-2">Focus Word</h4>
@@ -92,16 +93,13 @@
                   {{ story.focusWord.readings.kunyomi.join(", ") }}
                 </p>
               </template>
-              <p class="text-xs text-gray-500">
-                Type: {{ capitalizeFirst(story.focusWord.type) }}
-              </p>
             </div>
           </div>
 
-          <!-- Right side with focus word - grows to fill space -->
-          <div class="flex-1 flex justify-end items-center min-w-0">
+          <!-- Right side with focus word - make sure it fills the height -->
+          <div class="flex-1 flex flex-col justify-between min-w-0">
             <div
-              class="font-bold leading-none text-right"
+              class="font-bold leading-none text-right mt-0"
               :class="{
                 'text-5xl md:text-6xl xl:text-7xl':
                   story.focusWord.type === 'kanji',
@@ -111,6 +109,13 @@
             >
               {{ story.focusWord.word }}
             </div>
+            <UBadge
+              :color="getTypeColor(story.focusWord.type)"
+              variant="subtle"
+              class="capitalize self-end mb-0"
+            >
+              {{ story.focusWord.type }}
+            </UBadge>
           </div>
         </div>
       </div>
@@ -670,6 +675,19 @@ const speedOptions = computed<DropdownItem[]>(() =>
     click: () => setRate(option.value),
   }))
 );
+
+const getTypeColor = (type: WordType): BadgeColor => {
+  switch (type) {
+    case "kanji":
+      return "red";
+    case "hiragana":
+      return "blue";
+    case "katakana":
+      return "green";
+    default:
+      return "gray";
+  }
+};
 </script>
 
 <style>
