@@ -69,7 +69,10 @@
           <div class="w-1/3 shrink-0">
             <h4 class="font-semibold mb-2">Focus Word</h4>
             <p class="mb-2 break-words">
-              Meaning: <br />
+              <span class="text-xs text-gray-600 dark:text-gray-400"
+                >Meaning:</span
+              >
+              <br />
               {{ story.focusWord.meaning.en }}
             </p>
             <div class="text-sm space-y-1">
