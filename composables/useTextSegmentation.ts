@@ -1,32 +1,72 @@
 export const useTextSegmentation = () => {
   const splitIntoWords = (text: string): string[] => {
-    // Split text into words, treating punctuation differently
-    const words = text
-      .split(
-        /([、。])|(?<=[\u3040-\u309F\u30A0-\u30FF])|(?=[\u3040-\u309F\u30A0-\u30FF])/g
-      )
-      .filter((word) => word?.length > 0) // Remove empty strings but keep whitespace
-      .map((word) => word.trim())
-      .filter(Boolean); // Remove any remaining empty strings after trim
+    // Define patterns for Japanese word boundaries
+    const patterns = {
+      // Common honorific prefixes
+      honorificPrefixes: /^(お|ご)/,
+      // Common word endings
+      wordEndings: /(さん|ちゃん|くん|様|殿|たち|ども)$/,
+      // Punctuation marks
+      punctuation: /[、。]/,
+    };
 
-    // Combine consecutive hiragana/katakana
+    // First split by punctuation, preserving the punctuation marks
+    const segments = text
+      .split(/([、。])/)
+      .filter(Boolean)
+      .map((segment) => segment.trim());
+
     const result: string[] = [];
-    let current = "";
 
-    for (const word of words) {
-      if (/^[\u3040-\u309F\u30A0-\u30FF]$/.test(word)) {
-        current += word;
-      } else {
-        if (current) {
-          result.push(current);
-          current = "";
-        }
-        result.push(word);
+    for (const segment of segments) {
+      // If it's a punctuation mark, add it directly
+      if (patterns.punctuation.test(segment)) {
+        result.push(segment);
+        continue;
       }
-    }
 
-    if (current) {
-      result.push(current);
+      // Use a sliding window approach to identify words
+      let currentWord = "";
+      const chars = segment.split("");
+
+      for (let i = 0; i < chars.length; i++) {
+        const char = chars[i];
+        currentWord += char;
+
+        // Look ahead to check if we're in the middle of a word
+        const nextChar = chars[i + 1] || "";
+        const lookAhead = currentWord + nextChar;
+
+        // Conditions to keep building the current word
+        const isHonorificPrefix = patterns.honorificPrefixes.test(currentWord);
+        const hasWordEnding = patterns.wordEndings.test(lookAhead);
+        const isKanjiSequence =
+          /[\u4e00-\u9faf]/.test(char) && /[\u4e00-\u9faf]/.test(nextChar);
+        const isHiraganaSequence =
+          /[\u3040-\u309f]/.test(char) && /[\u3040-\u309f]/.test(nextChar);
+        const isKatakanaSequence =
+          /[\u30a0-\u30ff]/.test(char) && /[\u30a0-\u30ff]/.test(nextChar);
+
+        // Decide whether to continue building the current word or start a new one
+        const shouldContinue =
+          isHonorificPrefix ||
+          hasWordEnding ||
+          isKanjiSequence ||
+          isHiraganaSequence ||
+          isKatakanaSequence;
+
+        if (!shouldContinue && currentWord) {
+          if (currentWord.trim()) {
+            result.push(currentWord.trim());
+          }
+          currentWord = "";
+        }
+      }
+
+      // Add any remaining word
+      if (currentWord.trim()) {
+        result.push(currentWord.trim());
+      }
     }
 
     return result;

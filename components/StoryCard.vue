@@ -11,26 +11,10 @@
     <div class="space-y-4">
       <div class="flex items-start gap-2">
         <p
-          class="text-lg leading-relaxed flex-1 dark:text-gray-100 whitespace-normal"
+          ref="textContent"
+          class="text-lg leading-relaxed flex-1 dark:text-gray-100"
         >
-          <template v-for="(word, index) in contentWords" :key="index">
-            <span
-              class="transition-colors duration-200"
-              :class="[
-                // Remove padding for punctuation
-                /^[、。]$/.test(word) ? 'px-0 whitespace-nowrap' : 'px-0',
-                'rounded-sm',
-                'max-w-fit',
-                word.includes(story.focusWord.word)
-                  ? 'text-primary-600 dark:text-primary-400'
-                  : '',
-                currentWordIndex === index && isPlaying
-                  ? 'bg-primary-100 dark:bg-primary-900/50 font-medium'
-                  : '',
-              ]"
-              >{{ word }}</span
-            >
-          </template>
+          {{ story.content }}
         </p>
         <div class="flex flex-col gap-2">
           <UButton
@@ -254,7 +238,6 @@ import { useAudio } from "~/composables/useAudio";
 import { useStoryStore } from "~/stores/stories";
 import type { Story } from "~/data/stories";
 import { stories } from "~/data/stories";
-import { useTextSegmentation } from "~/composables/useTextSegmentation";
 
 const toast = useToast();
 const storyStore = useStoryStore(); // Move store initialization to the top
@@ -272,8 +255,9 @@ const { speak, stop, isSupported, error, isPlaying, currentWordIndex } =
   useAudio();
 const speaking = ref(false);
 
-const { splitIntoWords } = useTextSegmentation();
-const contentWords = computed(() => splitIntoWords(props.story.content));
+const textContent = ref<HTMLElement | null>(null);
+const currentWordStart = ref(-1);
+const currentWordEnd = ref(-1);
 
 const startAudio = async () => {
   speaking.value = true;
@@ -285,6 +269,8 @@ const startAudio = async () => {
         color: "yellow",
       });
 
+      console.log("Waiting for audio support...");
+
       await new Promise<void>((resolve) => {
         const checkVoices = () => {
           if (isSupported.value) resolve();
@@ -294,35 +280,73 @@ const startAudio = async () => {
       });
     }
 
-    await speak(props.story.content, contentWords.value, (index) => {
-      // Force reactive update
-      currentWordIndex.value = index;
+    // Reset text before starting
+    if (textContent.value) {
+      textContent.value.textContent = props.story.content;
+    }
+
+    await speak(props.story.content, (start, end) => {
+      currentWordStart.value = start;
+      currentWordEnd.value = end;
+      nextTick(() => highlightCurrentWord());
     });
   } catch (e) {
-    console.error("Speech error:", e);
-    toast.add({
-      title: "Audio Error",
-      description: "Could not play audio. Please try again.",
-      color: "red",
-    });
+    // console.error("Speech error:", e);
+    // toast.add({
+    //   title: "Audio Error",
+    //   description: "Could not play audio. Please try again.",
+    //   color: "red",
+    // });
   } finally {
     speaking.value = false;
+    currentWordStart.value = -1;
+    currentWordEnd.value = -1;
+    // Reset text when done
+    if (textContent.value) {
+      textContent.value.textContent = props.story.content;
+    }
   }
 };
 
 const stopAudio = () => {
   stop();
   speaking.value = false;
+  // Reset text when stopped
+  if (textContent.value) {
+    textContent.value.textContent = props.story.content;
+  }
+  currentWordStart.value = -1;
+  currentWordEnd.value = -1;
 };
+
+// Add debugging to highlight function
+const highlightCurrentWord = () => {
+  if (!textContent.value || currentWordStart.value === -1) return;
+
+  const text = props.story.content;
+  const before = text.slice(0, currentWordStart.value);
+  const current = text.slice(currentWordStart.value, currentWordEnd.value);
+  const after = text.slice(currentWordEnd.value);
+
+  textContent.value.innerHTML = `${before}<span class="bg-primary-100 dark:bg-primary-900/50 font-medium">${current}</span>${after}`;
+};
+
+// Reset text when audio stops
+watch(isPlaying, (playing) => {
+  if (!playing && textContent.value) {
+    textContent.value.textContent = props.story.content;
+  }
+});
 
 // Update watch handlers
 watch(error, (newError) => {
   if (newError) {
-    toast.add({
-      title: "Audio Error",
-      description: newError,
-      color: "red",
-    });
+    console.error("Speech error:", newError);
+    // toast.add({
+    //   title: "Audio Error",
+    //   description: newError,
+    //   color: "red",
+    // });
   }
 });
 
@@ -517,27 +541,6 @@ const progressScale = ref(0);
 const capitalizeFirst = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
-
-// Add this computed to help with debugging
-const activeWord = computed(() => {
-  if (
-    currentWordIndex.value >= 0 &&
-    currentWordIndex.value < contentWords.value.length
-  ) {
-    return contentWords.value[currentWordIndex.value];
-  }
-  return null;
-});
-
-// // Update the watch for better debugging
-// watch([currentWordIndex, isPlaying], ([newIndex, playing]) => {
-//   console.log("Word highlight state:", {
-//     index: newIndex,
-//     word: activeWord.value,
-//     isPlaying: playing,
-//     totalWords: contentWords.value.length,
-//   });
-// });
 </script>
 
 <style>

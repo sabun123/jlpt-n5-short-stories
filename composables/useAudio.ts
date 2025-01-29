@@ -102,71 +102,53 @@ export const useAudio = () => {
 
   const speak = async (
     text: string,
-    words: string[],
-    onWordChange?: (index: number) => void
+    onSegment?: (start: number, end: number) => void
   ) => {
     try {
       if (!synth.value || !selectedVoice.value) {
+        console.error("Speech synthesis not ready");
         throw new Error("Speech synthesis not ready");
       }
 
       stop();
-      currentWordIndex.value = -1;
-      isSpeaking.value = true; // Set speaking to true when starting
+      isSpeaking.value = true;
 
-      // Filter out non-speakable items and create utterances
-      const utterances = words
-        .map((word, index) => {
-          // Skip punctuation and whitespace
-          if (/^[、。\s]$/.test(word)) {
-            return null;
-          }
+      // Split text into meaningful segments
+      const segments = text.match(/[^\s、。]+[、。]?|\s+/g) || [text];
 
-          const utterance = new SpeechSynthesisUtterance(word);
-          utterance.voice = selectedVoice.value!;
-          utterance.lang = "ja-JP";
-          utterance.rate = isSafari.value ? 0.7 : 0.8;
+      let currentPosition = 0;
+      for (const segment of segments) {
+        if (!isSpeaking.value) break; // Stop if speech was cancelled
 
+        const utterance = new SpeechSynthesisUtterance(segment);
+        utterance.voice = selectedVoice.value;
+        utterance.lang = "ja-JP";
+        utterance.rate = isSafari.value ? 0.7 : 0.8;
+
+        await new Promise<void>((resolve, reject) => {
           utterance.onstart = () => {
-            isSpeaking.value = true;
-            currentWordIndex.value = index;
-            onWordChange?.(index);
+            onSegment?.(currentPosition, currentPosition + segment.length);
           };
 
           utterance.onend = () => {
-            if (index === words.length - 1) {
-              isSpeaking.value = false;
-              currentWordIndex.value = -1;
-              onWordChange?.(-1);
-            }
+            resolve();
           };
 
-          return utterance;
-        })
-        .filter(
-          (utterance): utterance is SpeechSynthesisUtterance =>
-            utterance !== null
-        );
+          utterance.onerror = (e) => {
+            console.error("Segment error:", e);
+            reject(e);
+          };
 
-      // Queue valid utterances
-      utterances.forEach((utterance) => synth.value!.speak(utterance));
+          synth.value!.speak(utterance);
+        });
 
-      return new Promise((resolve, reject) => {
-        const lastUtterance = utterances[utterances.length - 1];
-        lastUtterance.onend = () => {
-          isSpeaking.value = false;
-          currentWordIndex.value = -1;
-          onWordChange?.(-1);
-          resolve(true);
-        };
-        lastUtterance.onerror = (e) => {
-          isSpeaking.value = false;
-          currentWordIndex.value = -1;
-          onWordChange?.(-1);
-          reject(e);
-        };
-      });
+        currentPosition += segment.length;
+      }
+
+      isSpeaking.value = false;
+      return true;
     } catch (e) {
+      console.error("Speech error:", e);
       isSpeaking.value = false;
       error.value = e instanceof Error ? e.message : "Unknown error";
       throw e;
