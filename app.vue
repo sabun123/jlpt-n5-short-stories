@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-white dark:bg-gray-900 flex flex-col">
     <TheHeader />
-    <UContainer class="py-4 flex-1">
+    <UContainer class="py-4 flex-1 mb-[var(--footer-height)]">
       <NuxtPage />
     </UContainer>
     <TheFooter />
@@ -29,6 +29,8 @@ export default {
 <style>
 :root {
   --bg-opacity: 1;
+  --navbar-height: 4rem;
+  --footer-height: 4rem;
 }
 
 .dark {
