@@ -63,21 +63,33 @@
       </div>
 
       <div class="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <div class="flex items-start gap-6">
-          <div class="flex-1 min-w-0">
+        <div class="flex items-start">
+          <!-- Left side with fixed width and wrapping -->
+          <div class="w-1/3 shrink-0">
             <h4 class="font-semibold mb-2">Focus Word</h4>
-            <p class="mb-2">Meaning: {{ story.focusWord.meaning.en }}</p>
+            <p class="mb-2 break-words">
+              Meaning: <br />
+              {{ story.focusWord.meaning.en }}
+            </p>
             <div class="text-sm space-y-1">
               <template
                 v-if="
                   story.focusWord.type === 'kanji' && story.focusWord.readings
                 "
               >
-                <p v-if="story.focusWord.readings.onyomi?.length">
-                  Onyomi: {{ story.focusWord.readings.onyomi.join(", ") }}
+                <p
+                  v-if="story.focusWord.readings.onyomi?.length"
+                  class="break-words"
+                >
+                  Onyomi: <br />
+                  {{ story.focusWord.readings.onyomi.join(", ") }}
                 </p>
-                <p v-if="story.focusWord.readings.kunyomi?.length">
-                  Kunyomi: {{ story.focusWord.readings.kunyomi.join(", ") }}
+                <p
+                  v-if="story.focusWord.readings.kunyomi?.length"
+                  class="break-words"
+                >
+                  Kunyomi: <br />
+                  {{ story.focusWord.readings.kunyomi.join(", ") }}
                 </p>
               </template>
               <p class="text-xs text-gray-500">
@@ -85,9 +97,17 @@
               </p>
             </div>
           </div>
-          <div class="flex-none w-24 md:w-32 flex items-center justify-center">
+
+          <!-- Right side with focus word - grows to fill space -->
+          <div class="flex-1 flex justify-end items-center min-w-0">
             <div
-              class="text-5xl md:text-6xl xl:text-7xl font-bold leading-none"
+              class="font-bold leading-none text-right"
+              :class="{
+                'text-5xl md:text-6xl xl:text-7xl':
+                  story.focusWord.type === 'kanji',
+                'text-3xl md:text-4xl xl:text-5xl':
+                  story.focusWord.type !== 'kanji',
+              }"
             >
               {{ story.focusWord.word }}
             </div>
@@ -650,8 +670,6 @@ const speedOptions = computed<DropdownItem[]>(() =>
     click: () => setRate(option.value),
   }))
 );
-
-// Remove speedIcon computed since we're not using icons anymore
 </script>
 
 <style>

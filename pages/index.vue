@@ -9,8 +9,8 @@
     "
   >
     <!-- Navigation section when not in grid -->
-    <div v-if="!showGrid && !selectedFocusWord" class="flex-none p-4">
-      <div class="flex items-center gap-4 mb-8">
+    <div v-if="!showGrid && !selectedFocusWord" class="flex-none p-4 pb-0">
+      <div class="flex items-center gap-4 mb-1">
         <UTooltip
           text="No previous story available"
           :ui="{ width: 'w-auto' }"
