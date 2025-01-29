@@ -325,13 +325,40 @@ const highlightCurrentWord = () => {
   textContent.value.innerHTML = fullHighlightedText;
 };
 
-// Update onMounted to highlight focus word immediately
+// Add a new initialization function
+const initializeContent = () => {
+  if (textContent.value) {
+    nextTick(() => {
+      textContent.value!.innerHTML = highlightFocusWord(props.story.content);
+    });
+  }
+};
+
+// Update onMounted to be more robust
 onMounted(() => {
   resetAnswers();
-  if (textContent.value) {
-    textContent.value.innerHTML = highlightFocusWord(props.story.content);
+  // Add a small delay to ensure DOM is ready
+  setTimeout(() => {
+    initializeContent();
+  }, 0);
+});
+
+// Add a watch on the textContent ref itself
+watch(textContent, (newContent) => {
+  if (newContent) {
+    // Text content ref changed
+    initializeContent();
   }
 });
+
+// Update the story change watch
+watch(
+  () => props.story.id,
+  () => {
+    resetAnswers();
+    initializeContent();
+  }
+);
 
 // Update startAudio and stopAudio to preserve focus word highlighting
 const startAudio = async () => {
@@ -580,18 +607,6 @@ watch(
     });
   }
 );
-
-// When component is mounted, ensure clean state
-onMounted(() => {
-  resetAnswers();
-  if (textContent.value) {
-    const text = props.story.content;
-    textContent.value.innerHTML = text.replace(
-      props.story.focusWord.word,
-      `<span class="text-primary-500 dark:text-primary-400">${props.story.focusWord.word}</span>`
-    );
-  }
-});
 
 // Add shuffle function
 function shuffleArray<T>(array: T[]): T[] {
