@@ -451,4 +451,128 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 8,
+    title: {
+      jp: "たのしい りょこう",
+      en: "A Fun Trip",
+    },
+    content:
+      "きのう、わたしと ともだちが りょこうに いきました。りょこうの さきには うみが あって、いっぱい あそびました。たいてい りょこうは たのしいけど、ときどき つかれる。",
+    translations: {
+      en: "Yesterday, my friend and I went on a trip. There was an ocean at our travel destination, and we played a lot. Usually, trips are fun, but sometimes they can be tiring.",
+    },
+    focusWord: {
+      word: "りょこう",
+      type: "hiragana",
+      meaning: {
+        en: "trip, travel",
+      },
+    },
+    keywords: ["りょこう", "うみ", "あそびました"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Where did the person go on the trip?",
+          jp: "その人は りょこうで どこに 行きましたか。",
+        },
+        options: {
+          en: ["To the ocean", "To the mountains", "To a city", "To a forest"],
+          jp: ["海に", "山に", "街に", "森に"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What did the person and their friend do during the trip?",
+          jp: "その人と ともだちは りょこうで 何を しましたか。",
+        },
+        options: {
+          en: ["Played a lot", "Worked a lot", "Slept a lot", "Studied a lot"],
+          jp: [
+            "たくさん 遊んだ",
+            "たくさん 仕事した",
+            "たくさん 寝た",
+            "たくさん 勉強した",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 9,
+    title: {
+      jp: "はじめての りょこう",
+      en: "First Travel",
+    },
+    content:
+      "せんしゅう わたしは ともだちと りょこうに いきませんでした。びょうきでした。でも いま げんきです。あしたから ともだちと おおさかに りょこうに いきます。はじめての りょこうですから、とても たのしみです。ともだちは いま きっぷを かっています。",
+    translations: {
+      en: "Last week, I didn't go traveling with my friend. I was sick. But now I am well. From tomorrow, I will go traveling to Osaka with my friend. Since it's my first travel, I'm very excited. My friend is now buying the tickets.",
+    },
+    focusWord: {
+      word: "りょこう",
+      type: "hiragana",
+      meaning: {
+        en: "travel, trip, journey",
+      },
+    },
+    keywords: ["りょこう", "びょうき", "げんき", "たのしみ", "きっぷ"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Why didn't they go traveling last week?",
+          jp: "せんしゅう どうして りょこうに いきませんでしたか。",
+        },
+        options: {
+          en: [
+            "Because they were sick",
+            "Because of rain",
+            "Because they were busy",
+            "Because it was expensive",
+          ],
+          jp: [
+            "びょうきでした から",
+            "あめでした から",
+            "いそがしかった から",
+            "たかかった から",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Where are they going to travel?",
+          jp: "どこに りょこうに いきますか。",
+        },
+        options: {
+          en: ["Osaka", "Tokyo", "Kyoto", "Nagoya"],
+          jp: ["おおさか", "とうきょう", "きょうと", "なごや"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What is their friend doing now?",
+          jp: "ともだちは いま なにを していますか。",
+        },
+        options: {
+          en: ["Buying tickets", "Sleeping", "Eating", "Studying"],
+          jp: [
+            "きっぷを かっています",
+            "ねています",
+            "たべています",
+            "べんきょうしています",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
