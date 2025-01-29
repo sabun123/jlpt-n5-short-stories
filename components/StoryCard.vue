@@ -10,10 +10,22 @@
 
     <div class="space-y-4">
       <div class="flex items-start gap-2">
-        <p
-          class="text-lg leading-relaxed flex-1 dark:text-gray-100"
-          v-html="highlightedContent"
-        />
+        <p class="text-lg leading-relaxed flex-1 dark:text-gray-100">
+          <template v-for="(word, index) in contentWords" :key="index">
+            <span
+              class="inline-block px-1 rounded-sm transition-colors duration-200"
+              :class="[
+                word.includes(story.focusWord.word)
+                  ? 'text-primary-600 dark:text-primary-400'
+                  : '',
+                currentWordIndex === index && isPlaying
+                  ? 'bg-primary-100 dark:bg-primary-900/50 font-medium'
+                  : '',
+              ]"
+              >{{ word }}</span
+            >
+          </template>
+        </p>
         <div class="flex flex-col gap-2">
           <UButton
             v-if="isSupported && !isPlaying"
@@ -236,6 +248,7 @@ import { useAudio } from "~/composables/useAudio";
 import { useStoryStore } from "~/stores/stories";
 import type { Story } from "~/data/stories";
 import { stories } from "~/data/stories";
+import { useTextSegmentation } from "~/composables/useTextSegmentation";
 
 const toast = useToast();
 const storyStore = useStoryStore(); // Move store initialization to the top
@@ -248,13 +261,37 @@ const currentQuestionIndex = ref(0);
 const showQuestions = ref(false);
 const answers = ref<Record<number, number>>({});
 
-const { speak, stop, isSupported, error, isPlaying } = useAudio();
+// Update this line to include currentWordIndex
+const { speak, stop, isSupported, error, isPlaying, currentWordIndex } =
+  useAudio();
 const speaking = ref(false);
+
+const { splitIntoWords } = useTextSegmentation();
+const contentWords = computed(() => splitIntoWords(props.story.content));
 
 const startAudio = async () => {
   speaking.value = true;
   try {
-    await speak(props.story.content);
+    if (!isSupported.value) {
+      toast.add({
+        title: "Audio not ready",
+        description: "Please wait while we initialize the audio...",
+        color: "yellow",
+      });
+
+      await new Promise<void>((resolve) => {
+        const checkVoices = () => {
+          if (isSupported.value) resolve();
+          else setTimeout(checkVoices, 100);
+        };
+        checkVoices();
+      });
+    }
+
+    await speak(props.story.content, contentWords.value, (index) => {
+      // Force reactive update
+      currentWordIndex.value = index;
+    });
   } catch (e) {
     console.error("Speech error:", e);
     toast.add({
@@ -271,16 +308,6 @@ const stopAudio = () => {
   stop();
   speaking.value = false;
 };
-
-// Update the highlighting method to use text color
-const highlightedContent = computed(() => {
-  const word = props.story.focusWord.word;
-  const regex = new RegExp(`(${word})`, "g");
-  return props.story.content.replace(
-    regex,
-    '<span class="text-primary-500 dark:text-primary-400 font-medium">$1</span>'
-  );
-});
 
 // Update watch handlers
 watch(error, (newError) => {
@@ -484,22 +511,40 @@ const progressScale = ref(0);
 const capitalizeFirst = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// Add this computed to help with debugging
+const activeWord = computed(() => {
+  if (
+    currentWordIndex.value >= 0 &&
+    currentWordIndex.value < contentWords.value.length
+  ) {
+    return contentWords.value[currentWordIndex.value];
+  }
+  return null;
+});
+
+// // Update the watch for better debugging
+// watch([currentWordIndex, isPlaying], ([newIndex, playing]) => {
+//   console.log("Word highlight state:", {
+//     index: newIndex,
+//     word: activeWord.value,
+//     isPlaying: playing,
+//     totalWords: contentWords.value.length,
+//   });
+// });
 </script>
 
 <style>
-/* Remove previous highlight styles */
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* Remove all previous styles and replace with these */
+.transition-colors {
+  transition: all 0.15s ease-out;
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+.bg-primary-100 {
+  background-color: rgb(var(--color-primary-500) / 0.1);
+}
+
+.dark .bg-primary-900\/50 {
+  background-color: rgb(var(--color-primary-900) / 0.5);
 }
 </style>

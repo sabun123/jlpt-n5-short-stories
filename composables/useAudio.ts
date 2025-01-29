@@ -7,6 +7,8 @@ export const useAudio = () => {
   const voices = ref<SpeechSynthesisVoice[]>([]);
   const selectedVoice = ref<SpeechSynthesisVoice | null>(null);
   let currentUtterance: SpeechSynthesisUtterance | null = null;
+  const currentWordIndex = ref(-1);
+  const isSpeaking = ref(false); // Add this new ref
 
   const isSafari = computed(() => {
     if (typeof window === "undefined") return false;
@@ -22,6 +24,12 @@ export const useAudio = () => {
     if (!synth.value) return;
 
     const availableVoices = synth.value.getVoices();
+    if (availableVoices.length === 0) {
+      // Wait for voices to load
+      setTimeout(loadVoices, 100);
+      return;
+    }
+
     voices.value = availableVoices;
 
     // Priority order for voice selection:
@@ -40,7 +48,6 @@ export const useAudio = () => {
     }
 
     if (!preferredVoice && isEdge.value) {
-      console.log("Available voices:", availableVoices);
       // Look for Microsoft voices in order of preference
       const msVoices = [
         "Microsoft Nanami Online (Natural) - Japanese (Japan)",
@@ -65,7 +72,6 @@ export const useAudio = () => {
     }
 
     if (preferredVoice) {
-      console.log("Selected voice:", preferredVoice.name);
       selectedVoice.value = preferredVoice;
       isSupported.value = true;
     } else {
@@ -78,52 +84,86 @@ export const useAudio = () => {
     if (typeof window !== "undefined" && "speechSynthesis" in window) {
       synth.value = window.speechSynthesis;
 
-      // Handle both immediate and async voice loading
-      loadVoices();
+      // Improved voice loading strategy
+      const loadVoicesAndRetry = () => {
+        loadVoices();
+        if (!isSupported.value && voices.value.length === 0) {
+          // Retry after a short delay if no voices are found
+          setTimeout(loadVoicesAndRetry, 100);
+        }
+      };
+
+      loadVoicesAndRetry();
       window.speechSynthesis.onvoiceschanged = loadVoices;
     } else {
       error.value = "Speech synthesis not supported";
     }
   });
 
-  const speak = async (text: string) => {
+  const speak = async (
+    text: string,
+    words: string[],
+    onWordChange?: (index: number) => void
+  ) => {
     try {
       if (!synth.value || !selectedVoice.value) {
         throw new Error("Speech synthesis not ready");
       }
 
-      stop(); // Cancel any ongoing speech
+      stop();
+      currentWordIndex.value = -1;
+      isSpeaking.value = true; // Set speaking to true when starting
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = selectedVoice.value;
-      utterance.lang = "ja-JP";
+      // Create separate utterances for each word
+      const utterances = words.map((word, index) => {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.voice = selectedVoice.value!;
+        utterance.lang = "ja-JP";
 
-      // Adjust rate and pitch based on browser
-      if (isSafari.value) {
-        utterance.rate = 0.8;
-        utterance.pitch = 1.2;
-      } else if (isEdge.value) {
-        utterance.rate = 0.9;
-        utterance.pitch = 1.1;
-      } else {
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
-      }
+        // Adjust rate based on browser
+        utterance.rate = isSafari.value ? 0.7 : 0.8;
 
-      currentUtterance = utterance;
-      synth.value.speak(utterance);
+        // Set word boundary handlers
+        utterance.onstart = () => {
+          isSpeaking.value = true;
+          currentWordIndex.value = index;
+          onWordChange?.(index);
+        };
+
+        utterance.onend = () => {
+          // Only set speaking to false if this is the last utterance
+          if (index === words.length - 1) {
+            isSpeaking.value = false;
+            currentWordIndex.value = -1;
+            onWordChange?.(-1);
+          }
+        };
+
+        return utterance;
+      });
+
+      // Queue all utterances
+      utterances.forEach((utterance) => {
+        synth.value!.speak(utterance);
+      });
 
       return new Promise((resolve, reject) => {
-        utterance.onend = () => {
-          currentUtterance = null;
+        const lastUtterance = utterances[utterances.length - 1];
+        lastUtterance.onend = () => {
+          isSpeaking.value = false;
+          currentWordIndex.value = -1;
+          onWordChange?.(-1);
           resolve(true);
         };
-        utterance.onerror = (e) => {
-          currentUtterance = null;
+        lastUtterance.onerror = (e) => {
+          isSpeaking.value = false;
+          currentWordIndex.value = -1;
+          onWordChange?.(-1);
           reject(e);
         };
       });
     } catch (e) {
+      isSpeaking.value = false;
       error.value = e instanceof Error ? e.message : "Unknown error";
       throw e;
     }
@@ -133,10 +173,13 @@ export const useAudio = () => {
     if (synth.value?.speaking) {
       synth.value.cancel();
       currentUtterance = null;
+      currentWordIndex.value = -1;
+      isSpeaking.value = false; // Make sure to reset speaking state
     }
   };
 
-  const isPlaying = computed(() => synth.value?.speaking ?? false);
+  // Update isPlaying to use our isSpeaking ref
+  const isPlaying = computed(() => isSpeaking.value);
 
   return {
     speak,
@@ -144,5 +187,6 @@ export const useAudio = () => {
     isSupported,
     error,
     isPlaying,
+    currentWordIndex,
   };
 };
