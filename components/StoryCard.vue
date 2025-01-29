@@ -35,6 +35,27 @@
             @click="stopAudio"
             tooltip="Stop Audio"
           />
+          <UDropdown
+            v-if="isSupported"
+            :items="[speedOptions]"
+            :ui="{
+              container: 'w-16', // This controls the dropdown menu width
+              width: 'w-16',
+            }"
+          >
+            <UButton
+              color="gray"
+              variant="ghost"
+              :tooltip="`Speed: ${speechRate}x`"
+            >
+              {{ speechRate }}x
+            </UButton>
+            <template #item="{ item }">
+              <span :class="{ 'font-bold': item.value === speechRate }">
+                {{ item.label }}
+              </span>
+            </template>
+          </UDropdown>
         </div>
       </div>
       <div class="text-sm text-gray-600 dark:text-gray-400">
@@ -251,8 +272,16 @@ const showQuestions = ref(false);
 const answers = ref<Record<number, number>>({});
 
 // Update this line to include currentWordIndex
-const { speak, stop, isSupported, error, isPlaying, currentWordIndex } =
-  useAudio();
+const {
+  speak,
+  stop,
+  isSupported,
+  error,
+  isPlaying,
+  currentWordIndex,
+  speechRate,
+  setRate,
+} = useAudio();
 const speaking = ref(false);
 
 const textContent = ref<HTMLElement | null>(null);
@@ -541,6 +570,28 @@ const progressScale = ref(0);
 const capitalizeFirst = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+// Add speed options
+interface DropdownItem {
+  label: string;
+  click?: () => void;
+  value?: number;
+}
+
+const speedOptions = computed<DropdownItem[]>(() =>
+  [
+    { label: "0.5x", value: 0.5 },
+    { label: "0.75x", value: 0.75 },
+    { label: "1x", value: 1 },
+    { label: "1.25x", value: 1.25 },
+    { label: "1.5x", value: 1.5 },
+  ].map((option) => ({
+    ...option,
+    click: () => setRate(option.value),
+  }))
+);
+
+// Remove speedIcon computed since we're not using icons anymore
 </script>
 
 <style>

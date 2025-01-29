@@ -9,6 +9,7 @@ export const useAudio = () => {
   let currentUtterance: SpeechSynthesisUtterance | null = null;
   const currentWordIndex = ref(-1);
   const isSpeaking = ref(false); // Add this new ref
+  const speechRate = ref(1.0); // Add this near other refs
 
   const isSafari = computed(() => {
     if (typeof window === "undefined") return false;
@@ -123,7 +124,10 @@ export const useAudio = () => {
         const utterance = new SpeechSynthesisUtterance(segment);
         utterance.voice = selectedVoice.value;
         utterance.lang = "ja-JP";
-        utterance.rate = isSafari.value ? 0.7 : 0.8;
+        // Use speechRate.value instead of hardcoded rate
+        utterance.rate = isSafari.value
+          ? speechRate.value * 0.7
+          : speechRate.value * 0.8;
 
         await new Promise<void>((resolve, reject) => {
           utterance.onstart = () => {
@@ -164,6 +168,11 @@ export const useAudio = () => {
     }
   };
 
+  // Add setRate function
+  const setRate = (rate: number) => {
+    speechRate.value = rate;
+  };
+
   // Update isPlaying to use our isSpeaking ref
   const isPlaying = computed(() => isSpeaking.value);
 
@@ -174,5 +183,7 @@ export const useAudio = () => {
     error,
     isPlaying,
     currentWordIndex,
+    speechRate,
+    setRate,
   };
 };
