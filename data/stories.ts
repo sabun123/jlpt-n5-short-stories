@@ -466,7 +466,7 @@ export const stories: Story[] = [
       word: "りょこう",
       type: "hiragana",
       meaning: {
-        en: "trip, travel",
+        en: "travel, trip, journey",
       },
     },
     keywords: ["りょこう", "うみ", "あそびました"],
@@ -570,6 +570,137 @@ export const stories: Story[] = [
             "たべています",
             "べんきょうしています",
           ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 10,
+    title: {
+      jp: "ほしい もの",
+      en: "Things I Want",
+    },
+    content:
+      "わたしは たいてい の ゆうがたに お風呂に はいります。そのあと、ゆっくり 本を よんだり お茶を のんだり します。きのう、友達と 話して ほしい プレゼントについて 話しました。たいてい は ゲームや 書籍を ほしい と思います。",
+    translations: {
+      en: "I usually take a bath in the evening. After that, I read books or drink tea leisurely. Yesterday, I talked with my friend about gifts I want. Usually, I think I want games and books.",
+    },
+    focusWord: {
+      word: "ほしい",
+      type: "hiragana",
+      meaning: {
+        en: "want, desire, wish for",
+      },
+    },
+    keywords: ["ほしい", "お風呂", "本"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What does the person usually do in the evening?",
+          jp: "その人は たいてい の ゆうがたに 何を しますか。",
+        },
+        options: {
+          en: ["Take a bath", "Go for a walk", "Watch TV", "Cook dinner"],
+          jp: ["お風呂に 入る", "散歩する", "テレビを見る", "晩ごはんを 作る"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What does the person usually want as gifts?",
+          jp: "その人は たいてい 何を プレゼントとして ほしい と思いますか。",
+        },
+        options: {
+          en: [
+            "Games and books",
+            "Clothes and shoes",
+            "Toys and gadgets",
+            "Food and drinks",
+          ],
+          jp: [
+            "ゲームと 書籍",
+            "服と 靴",
+            "おもちゃと 小物",
+            "食べ物と 飲み物",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 11,
+    title: {
+      jp: "ねこが ほしい",
+      en: "I Want a Cat",
+    },
+    content:
+      "わたしは ねこが ほしいです。でも かぞくは いぬが ほしいと いいました。きのうは ペットショップに いきました。いぬも ねこも かわいかったです。いま おかねが たくさん ありません。らいげつ、ペットを かいたいです。でも なにを かうか まだ わかりません。",
+    translations: {
+      en: "I want a cat. But my family said they want a dog. Yesterday we went to the pet shop. Both dogs and cats were cute. Now I don't have much money. Next month, I want to buy a pet. But I still don't know what to buy.",
+    },
+    focusWord: {
+      word: "ほしい",
+      type: "hiragana",
+      meaning: {
+        en: "want, desire, wish for",
+      },
+    },
+    keywords: ["ほしい", "ペット", "かわいい", "おかね", "かう"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What pet does the speaker want?",
+          jp: "はなしている ひとは なにが ほしいですか。",
+        },
+        options: {
+          en: ["A cat", "A dog", "A bird", "A rabbit"],
+          jp: ["ねこ", "いぬ", "とり", "うさぎ"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What pet does the family want?",
+          jp: "かぞくは なにが ほしいですか。",
+        },
+        options: {
+          en: ["A dog", "A cat", "A bird", "A rabbit"],
+          jp: ["いぬ", "ねこ", "とり", "うさぎ"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Why can't they buy a pet now?",
+          jp: "どうして いま ペットを かえませんか。",
+        },
+        options: {
+          en: ["No money", "No time", "No space", "No permission"],
+          jp: [
+            "おかねが ありません",
+            "じかんが ありません",
+            "ばしょが ありません",
+            "ゆるされません",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "When do they want to buy a pet?",
+          jp: "いつ ペットを かいたいですか。",
+        },
+        options: {
+          en: ["Next month", "Tomorrow", "Next year", "Today"],
+          jp: ["らいげつ", "あした", "らいねん", "きょう"],
         },
         correctAnswer: 0,
       },
