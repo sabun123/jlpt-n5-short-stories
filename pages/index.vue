@@ -81,15 +81,16 @@
         </div>
       </div>
 
-      <!-- Scrollable content area - Update padding bottom to account for footer -->
+      <!-- Scrollable content area -->
       <div class="flex-1 overflow-hidden relative min-h-0">
         <!-- Move fade effect inside scrollable area -->
-        <div class="h-full overflow-y-auto pr-2 pb-4">
-          <!-- Fade effect now inside scrollable container -->
+        <div class="h-full overflow-y-auto pr-2 pb-4 relative">
+          <!-- Top fade effect -->
           <div
-            class="sticky bottom-0 h-12 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none z-10 -mb-12"
+            class="sticky -top-1 h-8 bg-gradient-to-b from-white dark:from-gray-900 to-transparent pointer-events-none z-10"
           ></div>
 
+          <!-- Content grid -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <template v-if="!selectedFocusWord">
               <UCard
@@ -150,6 +151,11 @@
               </UCard>
             </template>
           </div>
+
+          <!-- Bottom fade effect -->
+          <div
+            class="sticky -bottom-5 h-8 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none z-10 -mb-8"
+          ></div>
         </div>
       </div>
     </div>
@@ -388,4 +394,15 @@ body {
 }
 
 /* Remove the previous .fixed.inset-0 style since we're using inline style */
+
+/* Add new fade effect styles */
+.from-white {
+  --tw-gradient-from-position: 0%;
+  --tw-gradient-to-position: 100%;
+}
+
+.dark .from-gray-900 {
+  --tw-gradient-from-position: 0%;
+  --tw-gradient-to-position: 100%;
+}
 </style>
