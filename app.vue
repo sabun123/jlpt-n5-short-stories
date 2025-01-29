@@ -11,6 +11,25 @@
 
 <script setup>
 import { createLayout } from "~/composables/useLayout";
+
+// Add useHead composable for Google Analytics
+useHead({
+  script: [
+    {
+      src: "https://www.googletagmanager.com/gtag/js?id=G-BG32Y6R7EM",
+      async: true,
+    },
+    {
+      children: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BG32Y6R7EM');
+      `,
+    },
+  ],
+});
+
 const layout = createLayout();
 </script>
 
