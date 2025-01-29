@@ -27,6 +27,32 @@ useHead({
         gtag('config', 'G-BG32Y6R7EM');
       `,
     },
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: "JLPT N5 Short Stories",
+        description:
+          "Learn JLPT N5 level Japanese vocabulary with this short stories interactive tool. Supports English speakers.",
+        url: "https://sabun123.github.io/jlpt-n5-short-stories/",
+        applicationCategory: "EducationalApplication",
+        educationalUse: "Language Learning",
+        inLanguage: ["en", "ja"],
+        learningResourceType: "Interactive Resource",
+        educationalLevel: "Beginner",
+        teaches: "Japanese vocabulary - JLPT N5 Level",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "MYR",
+        },
+        author: {
+          "@type": "Person",
+          name: "Yusuf Ismail bin Shukor",
+        },
+      }),
+    },
   ],
 });
 
