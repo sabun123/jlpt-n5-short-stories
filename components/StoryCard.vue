@@ -601,11 +601,15 @@ const speedOptions = computed<DropdownItem[]>(() =>
 }
 
 .bg-primary-100 {
-  background-color: rgb(var(--color-primary-500) / 0.1);
+  background-color: rgb(
+    var(--color-primary-500) / 0.25
+  ); /* Increased from 0.1 to 0.25 */
 }
 
 .dark .bg-primary-900\/50 {
-  background-color: rgb(var(--color-primary-900) / 0.5);
+  background-color: rgb(
+    var(--color-primary-900) / 0.75
+  ); /* Increased from 0.5 to 0.75 */
 }
 
 /* Add this new style */
