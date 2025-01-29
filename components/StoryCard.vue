@@ -10,11 +10,17 @@
 
     <div class="space-y-4">
       <div class="flex items-start gap-2">
-        <p class="text-lg leading-relaxed flex-1 dark:text-gray-100">
+        <p
+          class="text-lg leading-relaxed flex-1 dark:text-gray-100 whitespace-normal"
+        >
           <template v-for="(word, index) in contentWords" :key="index">
             <span
-              class="inline-block px-1 rounded-sm transition-colors duration-200"
+              class="transition-colors duration-200"
               :class="[
+                // Remove padding for punctuation
+                /^[、。]$/.test(word) ? 'px-0 whitespace-nowrap' : 'px-0',
+                'rounded-sm',
+                'max-w-fit',
                 word.includes(story.focusWord.word)
                   ? 'text-primary-600 dark:text-primary-400'
                   : '',
@@ -546,5 +552,24 @@ const activeWord = computed(() => {
 
 .dark .bg-primary-900\/50 {
   background-color: rgb(var(--color-primary-900) / 0.5);
+}
+
+/* Add this new style */
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Add these new styles */
+.max-w-fit {
+  max-width: fit-content;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.whitespace-normal {
+  white-space: normal;
 }
 </style>
