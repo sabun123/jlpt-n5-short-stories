@@ -82,6 +82,43 @@
             </li>
           </ul>
         </div>
+
+        <div>
+          <h3 class="font-bold mb-2">Requirements</h3>
+          <div class="space-y-3 text-gray-600 dark:text-gray-400">
+            <p>Text to Speech supported browsers:</p>
+            <ul class="list-outside list-disc ml-4 space-y-2">
+              <li class="pl-1 flex items-center gap-2">
+                <UIcon name="i-simple-icons-safari" class="h-5 w-5" /> Safari
+              </li>
+              <li class="pl-1 flex items-center gap-2">
+                <UIcon name="i-simple-icons-googlechrome" class="h-5 w-5" />
+                Chrome
+              </li>
+              <li class="pl-1 flex items-center gap-2">
+                <UIcon name="i-simple-icons-microsoftedge" class="h-5 w-5" />
+                Microsoft Edge
+              </li>
+            </ul>
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-signal" class="h-5 w-5" />
+              <p>
+                Initial internet connection required for first load. Afterwards,
+                the app can be used offline as there's no data download needed.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-device-phone-mobile" class="h-5 w-5" />
+              <p>
+                Optimized for mobile browsers, but fully functional on
+                desktop/laptop devices.
+              </p>
+            </div>
+            <div class="flex justify-center items-center gap-2 pt-2">
+              <p>Made in Malaysia 🇲🇾</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <template #footer>
