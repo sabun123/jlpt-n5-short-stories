@@ -98,36 +98,32 @@ export const stories: Story[] = [
   {
     id: 2,
     title: {
-      jp: "私の 家族",
+      jp: "わたしの かぞく",
       en: "My Family",
     },
     content:
-      "私の 家族は 四人です。お父さんと お母さんと 妹が います。私たちは まいしゅう 家で ごはんを たべます。",
+      "わたしの かぞくは よにんです。おとうさんと おかあさんと いもうとが います。わたしたちは まいしゅう いえで ごはんを たべます。",
     translations: {
       en: "My family has four people. I have a father, mother, and younger sister. We eat meals together at home every week.",
     },
     focusWord: {
-      word: "家族",
-      type: "kanji",
+      word: "かぞく",
+      type: "hiragana",
       meaning: {
         en: "family",
       },
-      readings: {
-        kunyomi: ["かぞく"],
-        onyomi: [],
-      },
     },
-    keywords: ["家族", "四人", "ごはん"],
+    keywords: ["かぞく", "よにん", "ごはん"],
     questions: [
       {
         id: 1,
         question: {
           en: "How many people are in the family?",
-          jp: "家族は なんにん いますか。",
+          jp: "かぞくは なんにん いますか。",
         },
         options: {
           en: ["Four people", "Three people", "Five people", "Two people"],
-          jp: ["四人", "三人", "五人", "二人"],
+          jp: ["よにん", "さんにん", "ごにん", "ふたり"],
         },
         correctAnswer: 0,
       },
@@ -135,7 +131,7 @@ export const stories: Story[] = [
         id: 2,
         question: {
           en: "What does the family do every week?",
-          jp: "家族は まいしゅう なにを しますか。",
+          jp: "かぞくは まいしゅう なにを しますか。",
         },
         options: {
           en: [
@@ -146,7 +142,7 @@ export const stories: Story[] = [
           ],
           jp: [
             "ごはんを たべます",
-            "公園に いきます",
+            "こうえんに いきます",
             "テレビを みます",
             "ゲームを します",
           ],
@@ -701,6 +697,253 @@ export const stories: Story[] = [
         options: {
           en: ["Next month", "Tomorrow", "Next year", "Today"],
           jp: ["らいげつ", "あした", "らいねん", "きょう"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: {
+      jp: "たくさんの お金",
+      en: "Lots of Money",
+    },
+    content:
+      "きょうは ばんごはんに たくさん お金を つかいました。ともだちの たんじょうびでした。わたしは いま あまり お金が ありません。でも らいしゅう お金が もらえます。きのうも お金を つかいませんでした。だから あしたは スーパーに いって、やさいを かいます。",
+    translations: {
+      en: "Today I spent a lot of money on dinner. It was my friend's birthday. Now I don't have much money. But next week I will receive money. Yesterday I didn't spend money either. So tomorrow I will go to the supermarket and buy vegetables.",
+    },
+    focusWord: {
+      word: "お金",
+      type: "kanji",
+      meaning: {
+        en: "money",
+      },
+    },
+    keywords: ["お金", "つかう", "もらう", "スーパー", "やさい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Why did they spend money today?",
+          jp: "きょう どうして お金を つかいましたか。",
+        },
+        options: {
+          en: ["Friend's birthday dinner", "Shopping", "Travel", "School"],
+          jp: [
+            "ともだちの たんじょうび の ばんごはん",
+            "かいもの",
+            "りょこう",
+            "がっこう",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "When will they receive money?",
+          jp: "いつ お金を もらえますか。",
+        },
+        options: {
+          en: ["Next week", "Tomorrow", "Today", "Next month"],
+          jp: ["らいしゅう", "あした", "きょう", "らいげつ"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What will they buy tomorrow?",
+          jp: "あした なにを かいますか。",
+        },
+        options: {
+          en: ["Vegetables", "Meat", "Fish", "Fruit"],
+          jp: ["やさい", "にく", "さかな", "くだもの"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "Did they spend money yesterday?",
+          jp: "きのう お金を つかいましたか。",
+        },
+        options: {
+          en: ["No", "Yes", "Don't know", "A little"],
+          jp: ["いいえ", "はい", "わかりません", "すこし"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 13,
+    title: {
+      jp: "おなじ たべもの",
+      en: "The Same Food",
+    },
+    content:
+      "きのう わたしは レストランで カレーを たべました。きょうも おなじ レストランに いきました。そして おなじ カレーを たべました。あした ともだちと いきますが、おなじ カレーは たべません。ともだちは「いつも おなじ たべものは たのしくない」と いいました。",
+    translations: {
+      en: "Yesterday I ate curry at a restaurant. Today I went to the same restaurant. And I ate the same curry. Tomorrow I will go with my friend, but I won't eat the same curry. My friend said 'Always eating the same food isn't fun.'",
+    },
+    focusWord: {
+      word: "おなじ",
+      type: "hiragana",
+      meaning: {
+        en: "same, identical",
+      },
+    },
+    keywords: ["おなじ", "レストラン", "カレー", "たべもの", "たのしい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What did they eat yesterday and today?",
+          jp: "きのうと きょう なにを たべましたか。",
+        },
+        options: {
+          en: ["The same curry", "Different curry", "Ramen", "Sushi"],
+          jp: ["おなじ カレー", "ちがう カレー", "ラーメン", "すし"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Will they eat the same curry tomorrow?",
+          jp: "あした おなじ カレーを たべますか。",
+        },
+        options: {
+          en: ["No", "Yes", "Maybe", "Don't know"],
+          jp: ["いいえ", "はい", "たぶん", "わかりません"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What did the friend say about eating the same food?",
+          jp: "おなじ たべものについて ともだちは なんと いいましたか。",
+        },
+        options: {
+          en: ["It isn't fun", "It is fun", "It is good", "It is bad"],
+          jp: ["たのしくない", "たのしい", "いい", "よくない"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 14,
+    title: {
+      jp: "あたらしい じてんしゃ",
+      en: "New Bicycle",
+    },
+    content:
+      "きのう わたしは じてんしゃを かいました。あかい じてんしゃです。いま がっこうまで じてんしゃで いきます。まえは バスで いきました。あしたは ともだちも じてんしゃで がっこうに きます。わたしたちは いっしょに じてんしゃに のって、こうえんに いくつもりです。",
+    translations: {
+      en: "Yesterday I bought a bicycle. It's a red bicycle. Now I go to school by bicycle. Before, I went by bus. Tomorrow my friend will also come to school by bicycle. We plan to ride our bicycles together to the park.",
+    },
+    focusWord: {
+      word: "じてんしゃ",
+      type: "hiragana",
+      meaning: {
+        en: "bicycle",
+      },
+    },
+    keywords: ["じてんしゃ", "がっこう", "いっしょに", "こうえん", "のる"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What color is the bicycle?",
+          jp: "じてんしゃは なんいろ ですか。",
+        },
+        options: {
+          en: ["Red", "Blue", "Green", "White"],
+          jp: ["あかい", "あおい", "みどり", "しろい"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "How did they go to school before?",
+          jp: "まえは なにで がっこうに いきましたか。",
+        },
+        options: {
+          en: ["By bus", "By train", "By car", "By bicycle"],
+          jp: ["バスで", "でんしゃで", "くるまで", "じてんしゃで"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Where are they planning to go together?",
+          jp: "いっしょに どこに いくつもり ですか。",
+        },
+        options: {
+          en: ["Park", "School", "Store", "Library"],
+          jp: ["こうえん", "がっこう", "みせ", "としょかん"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 15,
+    title: {
+      jp: "あたたかい セーター",
+      en: "A Warm Sweater",
+    },
+    content:
+      "きのう、わたしは たいてい の ゆうがたに さんぽを しました。てんきは さむかったので、あたたかい セーターを きました。そのあと、おうちに かえって おちゃを のみました。セーターは とても あたたかくて、きもちが よかったです。",
+    translations: {
+      en: "Yesterday, I usually took a walk in the evening. It was cold, so I wore a warm sweater. After that, I went back home and drank tea. The sweater was very warm and made me feel good.",
+    },
+    focusWord: {
+      word: "セーター",
+      type: "katakana",
+      meaning: {
+        en: "sweater",
+      },
+    },
+    keywords: ["セーター", "さんぽ", "あたたかい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What did the person usually do in the evening?",
+          jp: "その人は たいてい の ゆうがたに 何を しますか。",
+        },
+        options: {
+          en: ["Take a walk", "Watch TV", "Read a book", "Cook dinner"],
+          jp: [
+            "さんぽを する",
+            "てれびを みる",
+            "ほんを よむ",
+            "ごはんを つくる",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What did the person wear because it was cold?",
+          jp: "さむかったので、その人は 何を きましたか。",
+        },
+        options: {
+          en: ["A sweater", "A coat", "A jacket", "A scarf"],
+          jp: [
+            "セーターを きた",
+            "こーとを きた",
+            "ジャケットを きた",
+            "マフラーを した",
+          ],
         },
         correctAnswer: 0,
       },
