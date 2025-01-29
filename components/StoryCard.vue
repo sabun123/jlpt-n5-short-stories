@@ -56,9 +56,20 @@
               </span>
             </template>
           </UDropdown>
+          <UButton
+            color="gray"
+            variant="ghost"
+            :tooltip="showTranslation ? 'Hide English' : 'Show English'"
+            @click="showTranslation = !showTranslation"
+          >
+            {{ showTranslation ? "EN" : "JP" }}
+          </UButton>
         </div>
       </div>
-      <div class="text-sm text-gray-600 dark:text-gray-400">
+      <div
+        v-if="showTranslation"
+        class="text-sm text-gray-600 dark:text-gray-400"
+      >
         {{ story.translations.en }}
       </div>
 
@@ -642,7 +653,7 @@ function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Fixed: shuffled[i] instead of i
   }
   return shuffled;
 }
@@ -692,6 +703,8 @@ const getTypeColor = (type: WordType): BadgeColor => {
       return "gray";
   }
 };
+
+const showTranslation = ref(false); // Add this near the top with other refs
 </script>
 
 <style>
