@@ -1,7 +1,10 @@
 <template>
   <div>
-    <!-- Replace the top progress stats section with navigation row on mobile -->
-    <div class="flex items-center gap-4 mb-8">
+    <!-- Only show navigation when viewing an individual story -->
+    <div
+      v-if="!showGrid && !selectedFocusWord"
+      class="flex items-center gap-4 mb-8"
+    >
       <UTooltip
         text="No previous story available"
         :ui="{ width: 'w-auto' }"
@@ -39,25 +42,74 @@
       </UTooltip>
     </div>
 
-    <div v-if="showGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <UCard
-        v-for="story in stories"
-        :key="story.id"
-        :ui="{ background: story.id === currentStoryId ? 'primary' : 'white' }"
-        @click="selectStory(story.id)"
+    <div v-if="showGrid" class="relative">
+      <!-- Add fade effect at bottom of scrollable area -->
+      <div
+        class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white dark:from-gray-900 to-transparent pointer-events-none"
+      ></div>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[calc(100vh-10rem)] overflow-y-auto pr-2"
       >
-        <div class="flex items-center gap-4">
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold">{{ story.title.jp }}</h3>
-            <p class="text-sm">{{ story.title.en }}</p>
+        <template v-if="!selectedFocusWord">
+          <UCard
+            v-for="group in groupedStories"
+            :key="group.focusWord.word"
+            @click="selectFocusWord(group.focusWord.word)"
+          >
+            <div class="flex items-center gap-4">
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold">
+                  {{ group.focusWord.word }}
+                </h3>
+                <p class="text-sm">{{ group.focusWord.meaning.en }}</p>
+                <p class="text-xs text-gray-500">
+                  {{ group.stories.length }}
+                  {{ group.stories.length === 1 ? "story" : "stories" }}
+                </p>
+              </div>
+              <UBadge
+                :color="getTypeColor(group.focusWord.type)"
+                variant="subtle"
+                class="capitalize"
+              >
+                {{ group.focusWord.type }}
+              </UBadge>
+            </div>
+          </UCard>
+        </template>
+        <template v-else>
+          <div class="col-span-full mb-4">
+            <UButton
+              icon="i-heroicons-arrow-left"
+              variant="ghost"
+              @click="selectedFocusWord = null"
+            >
+              Back to Focus Words
+            </UButton>
           </div>
-          <UIcon
-            v-if="isCompleted(story.id)"
-            name="i-heroicons-check-circle"
-            class="text-green-500"
-          />
-        </div>
-      </UCard>
+          <UCard
+            v-for="story in storiesForSelectedWord"
+            :key="story.id"
+            :ui="{
+              background: story.id === currentStoryId ? 'primary' : 'white',
+            }"
+            @click="selectStory(story.id)"
+          >
+            <div class="flex items-center gap-4">
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold">{{ story.title.jp }}</h3>
+                <p class="text-sm">{{ story.title.en }}</p>
+              </div>
+              <UIcon
+                v-if="isCompleted(story.id)"
+                name="i-heroicons-check-circle"
+                class="text-green-500"
+              />
+            </div>
+          </UCard>
+        </template>
+      </div>
     </div>
 
     <!-- Hide navigation buttons in story view on mobile since they're at the top now -->
@@ -106,9 +158,12 @@
 import type { ProgressStatsExposed } from "~/types/components";
 import type { UButton } from "#components"; // Add this import
 import { storeToRefs } from "pinia";
-import { onMounted, computed, nextTick, ref } from "vue";
-import { stories } from "~/data/stories";
+import { onMounted, computed, nextTick, ref, watch } from "vue";
+import { stories, type WordType } from "~/data/stories";
 import { useStoryStore } from "~/stores/stories";
+
+// Update type definition - remove undefined
+type BadgeColor = "gray" | "red" | "blue" | "green" | undefined;
 
 const { showGrid } = useLayout();
 const storyStore = useStoryStore();
@@ -117,10 +172,62 @@ const { nextStory, previousStory, markAsCompleted } = storyStore;
 
 const isCompleted = (id: number) => progress.value.completed.includes(id);
 
+const selectedFocusWord = ref<string | null>(null);
+
+const groupedStories = computed(() => {
+  const groups = new Map();
+
+  stories.forEach((story) => {
+    const focusWord = story.focusWord;
+    if (!groups.has(focusWord.word)) {
+      groups.set(focusWord.word, {
+        focusWord,
+        stories: [],
+      });
+    }
+    groups.get(focusWord.word).stories.push(story);
+  });
+
+  return Array.from(groups.values());
+});
+
+const storiesForSelectedWord = computed(() => {
+  if (!selectedFocusWord.value) return [];
+  return stories.filter(
+    (story) => story.focusWord.word === selectedFocusWord.value
+  );
+});
+
+const selectFocusWord = (word: string) => {
+  selectedFocusWord.value = word;
+};
+
+const getTypeColor = (type: WordType): BadgeColor => {
+  switch (type) {
+    case "kanji":
+      return "red";
+    case "hiragana":
+      return "blue";
+    case "katakana":
+      return "green";
+    default:
+      return "gray";
+  }
+};
+
+// Modify existing selectStory function
 const selectStory = (id: number) => {
   currentStoryId.value = id;
   showGrid.value = false;
+  selectedFocusWord.value = null; // Reset selected focus word when story is selected
 };
+
+// Add to existing watchers/handlers
+watch(showGrid, (newValue) => {
+  if (!newValue) {
+    selectedFocusWord.value = null;
+  }
+});
 
 const hasPreviousStory = computed(() => currentStoryId.value > 1);
 const hasNextStory = computed(() => currentStoryId.value < stories.length);
@@ -199,5 +306,29 @@ onMounted(() => {
 .animate-border {
   animation: border-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   border: 2px solid transparent;
+}
+
+/* Add smooth scrolling behavior */
+.overflow-y-auto {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+/* Style scrollbar for webkit browsers */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-gray-200));
+  border-radius: 3px;
+}
+
+.dark .overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-gray-700));
 }
 </style>
