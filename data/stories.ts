@@ -383,4 +383,72 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 7,
+    title: {
+      jp: "こわい かいだん",
+      en: "The Scary Stairs",
+    },
+    content:
+      "きのう ともだちの いえに いきました。かいだんが ふるくて こわかったです。いま わたしは あたらしい いえに すんでいます。かいだんは あたらしいです。あしたは ともだちが きます。ともだちは この かいだんを みて、「きれい！」と いうでしょう。",
+    translations: {
+      en: "Yesterday, I went to my friend's house. The stairs were old and scary. Now I live in a new house. The stairs are new. Tomorrow my friend will come. When my friend sees these stairs, they will probably say 'Beautiful!'",
+    },
+    focusWord: {
+      word: "かいだん",
+      type: "hiragana",
+      meaning: {
+        en: "stairs, stairway",
+      },
+    },
+    keywords: ["かいだん", "こわい", "あたらしい", "ふるい", "きれい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What kind of stairs were at the friend's house?",
+          jp: "ともだちの いえの かいだんは どうでしたか。",
+        },
+        options: {
+          en: [
+            "Old and scary",
+            "New and beautiful",
+            "Small and dark",
+            "Big and bright",
+          ],
+          jp: [
+            "ふるくて こわい",
+            "あたらしくて きれい",
+            "ちいさくて くらい",
+            "おおきくて あかるい",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What will the friend probably say about the stairs?",
+          jp: "ともだちは かいだんを みて なんと いうでしょうか。",
+        },
+        options: {
+          en: ["Beautiful!", "Scary!", "Old!", "Small!"],
+          jp: ["きれい！", "こわい！", "ふるい！", "ちいさい！"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "When does the story mention the friend will come?",
+          jp: "ともだちは いつ くるといいましたか。",
+        },
+        options: {
+          en: ["Tomorrow", "Today", "Yesterday", "Next week"],
+          jp: ["あした", "きょう", "きのう", "らいしゅう"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
