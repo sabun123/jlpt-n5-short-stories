@@ -1090,4 +1090,72 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 18,
+    title: {
+      jp: "わたしと 金",
+      en: "Me and Gold",
+    },
+    content:
+      "きのう おかあさんは 金の ゆびわを なくしました。いま わたしは 金の ネックレスを みています。あした ともだちは 金の とけいを かいます。わたしは 金が すきです。とても きれいです。",
+    translations: {
+      en: "Yesterday my mother lost her gold ring. Now I am looking at a gold necklace. Tomorrow my friend will buy a gold watch. I like gold. It's very beautiful.",
+    },
+    focusWord: {
+      word: "金",
+      type: "kanji",
+      meaning: {
+        en: "gold",
+      },
+    },
+    keywords: ["ゆびわ", "ネックレス", "とけい", "きれい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What gold item did mother lose?",
+          jp: "おかあさんは 金の なにを なくしましたか。",
+        },
+        options: {
+          en: ["Ring", "Necklace", "Watch", "Bracelet"],
+          jp: ["ゆびわ", "ネックレス", "とけい", "ブレスレット"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What gold item is the person looking at now?",
+          jp: "その人は いま 金の なにを みていますか。",
+        },
+        options: {
+          en: ["Necklace", "Ring", "Watch", "Bracelet"],
+          jp: ["ネックレス", "ゆびわ", "とけい", "ブレスレット"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What does the person think about gold?",
+          jp: "その人は 金について どう おもいますか。",
+        },
+        options: {
+          en: [
+            "Likes it, thinks it's beautiful",
+            "Doesn't like it",
+            "Thinks it's expensive",
+            "No opinion",
+          ],
+          jp: [
+            "すきで、きれいだと おもいます",
+            "すきじゃないです",
+            "たかいと おもいます",
+            "いけんが ありません",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
