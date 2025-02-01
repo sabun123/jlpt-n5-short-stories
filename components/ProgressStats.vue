@@ -52,8 +52,9 @@
         </div>
         <div class="text-center p-2">
           <UProgress
-            :model-value="progressPercentage"
+            :model-value="Math.round(progressPercentage)"
             color="primary"
+            animation="elastic"
             class="mb-1"
           />
         </div>
@@ -94,8 +95,9 @@
       </div>
       <div class="text-center p-2 md:p-4">
         <UProgress
-          :model-value="progressPercentage"
+          :model-value="Math.round(progressPercentage)"
           color="primary"
+          animation="elastic"
           class="mb-1 md:mb-2"
         />
         <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">
@@ -156,6 +158,16 @@ const { stats } = storeToRefs(storyStore);
 const progressPercentage = computed(
   () => (stats.value.completedStories / stats.value.totalStories) * 100
 );
+
+// Update the computed properties
+const progressColor = computed(() => {
+  if (progressPercentage.value >= 100) return "success";
+  if (progressPercentage.value >= 75) return "primary";
+  if (progressPercentage.value >= 50) return "warning";
+  return "gray";
+});
+
+// Remove the progressAnimation computed property as we're using a direct string value
 
 function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600);

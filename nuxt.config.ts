@@ -15,7 +15,16 @@ export default defineNuxtConfig({
 
   app: {
     baseURL: "/jlpt-n5-short-stories/",
+    buildAssetsDir: "/_nuxt/", // Don't use leading slash for GitHub Pages
+    head: {
+      title: "JLPT N5 Short Stories",
+    },
   },
 
   compatibilityDate: "2025-01-26",
+
+  // Add nitro configuration for static hosting
+  nitro: {
+    preset: "github-pages",
+  },
 });
