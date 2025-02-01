@@ -949,4 +949,145 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 16,
+    title: {
+      jp: "わたしの お金",
+      en: "My Money",
+    },
+    content:
+      "きのう わたしは お金を もらいました。いま わたしは お金が あります。あした ともだちに お金を あげます。わたしは お金が すきでは ありません。でも お金が ひつようです。",
+    translations: {
+      en: "Yesterday I received money. Now I have money. Tomorrow I will give money to my friend. I don't like money. But money is necessary.",
+    },
+    focusWord: {
+      word: "お金",
+      type: "kanji",
+      meaning: {
+        en: "money",
+      },
+    },
+    keywords: ["もらいました", "あります", "あげます", "ひつよう"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "When did the person receive money?",
+          jp: "その人は いつ お金を もらいましたか。",
+        },
+        options: {
+          en: ["Yesterday", "Today", "Tomorrow", "Last week"],
+          jp: ["きのう", "きょう", "あした", "せんしゅう"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What will the person do with the money tomorrow?",
+          jp: "その人は あした お金を どうしますか。",
+        },
+        options: {
+          en: ["Give it to a friend", "Save it", "Spend it", "Lose it"],
+          jp: ["ともだちに あげます", "ためます", "つかいます", "なくします"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Does the person like money?",
+          jp: "その人は お金が すきですか。",
+        },
+        options: {
+          en: ["No", "Yes", "Maybe", "Don't know"],
+          jp: ["いいえ", "はい", "たぶん", "わかりません"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 17,
+    title: {
+      jp: "たのしい 金曜日",
+      en: "Fun Friday",
+    },
+    content:
+      "せんしゅうの 金曜日に えいがを みました。こんしゅうの 金曜日は ともだちと レストランで たべます。らいしゅうの 金曜日は びょういんに いきません。わたしは 金曜日が だいすきです。",
+    translations: {
+      en: "Last Friday I watched a movie. This Friday I will eat at a restaurant with a friend. Next Friday I won't go to the hospital. I really like Friday.",
+    },
+    focusWord: {
+      word: "金曜日",
+      type: "kanji",
+      meaning: {
+        en: "Friday",
+      },
+    },
+    keywords: ["えいが", "レストラン", "びょういん", "だいすき"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What did the person do last Friday?",
+          jp: "その人は せんしゅうの 金曜日に なにを しましたか。",
+        },
+        options: {
+          en: [
+            "Watched a movie",
+            "Ate at a restaurant",
+            "Went to hospital",
+            "Studied",
+          ],
+          jp: [
+            "えいがを みました",
+            "レストランで たべました",
+            "びょういんに いきました",
+            "べんきょうしました",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What will the person do this Friday?",
+          jp: "その人は こんしゅうの 金曜日に なにを しますか。",
+        },
+        options: {
+          en: [
+            "Eat at a restaurant",
+            "Watch a movie",
+            "Go to hospital",
+            "Study",
+          ],
+          jp: [
+            "レストランで たべます",
+            "えいがを みます",
+            "びょういんに いきます",
+            "べんきょうします",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "How does the person feel about Friday?",
+          jp: "その人は 金曜日が すきですか。",
+        },
+        options: {
+          en: ["Really likes it", "Doesn't like it", "It's okay", "Hates it"],
+          jp: [
+            "だいすきです",
+            "すきじゃないです",
+            "まあまあです",
+            "きらいです",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
