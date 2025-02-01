@@ -88,14 +88,15 @@
           <div class="space-y-3 text-gray-600 dark:text-gray-400">
             <p>Text to Speech supported browsers:</p>
             <ul class="list-outside list-disc ml-4 space-y-2">
-              <li class="pl-1 flex items-center gap-2">
-                <UIcon name="i-simple-icons-safari" class="h-5 w-5" /> Safari
+              <li class="pl-1 flex items-center gap-2 text-purple-500">
+                <UIcon name="i-simple-icons-safari" class="h-5 w-5" />
+                Safari
               </li>
-              <li class="pl-1 flex items-center gap-2">
+              <li class="pl-1 flex items-center gap-2 text-yellow-500">
                 <UIcon name="i-simple-icons-googlechrome" class="h-5 w-5" />
                 Chrome
               </li>
-              <li class="pl-1 flex items-center gap-2">
+              <li class="pl-1 flex items-center gap-2 text-blue-500">
                 <UIcon name="i-simple-icons-microsoftedge" class="h-5 w-5" />
                 Microsoft Edge
               </li>
