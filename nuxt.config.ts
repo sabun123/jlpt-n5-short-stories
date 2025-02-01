@@ -26,5 +26,13 @@ export default defineNuxtConfig({
   // Add nitro configuration for static hosting
   nitro: {
     preset: "github-pages",
+    output: {
+      publicDir: ".output/public",
+    },
+  },
+
+  // Optional but recommended for static sites
+  experimental: {
+    payloadExtraction: false,
   },
 });
