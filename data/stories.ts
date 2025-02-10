@@ -1158,4 +1158,62 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 19,
+    title: {
+      jp: "たんじょうびの プレゼント",
+      en: "Birthday Present",
+    },
+    content:
+      "むかし むかし、どんな プレゼントが ほしいか わかりません でした。こんな とけいは きれい です。そんな とけいは たかく ありません。あんな とけいは いい です。いま、わたしは とても うれしい です。あした、わたしは あたらしい とけいを かいに いきます。",
+    translations: {
+      en: "Long ago, I didn't know what kind of present I wanted. This kind of watch is beautiful. That kind of watch is not expensive. That kind of watch over there is good. Now, I am very happy. Tomorrow, I will go to buy a new watch.",
+    },
+    focusWord: {
+      word: "どんな",
+      type: "hiragana",
+      meaning: {
+        en: "what kind of, what sort of",
+      },
+    },
+    keywords: ["どんな", "こんな", "そんな", "あんな", "とけい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What is the person looking to buy?",
+          jp: "その人は なにを かいに いきますか。",
+        },
+        options: {
+          en: ["A watch", "A book", "A bag", "A phone"],
+          jp: ["とけい", "ほん", "かばん", "でんわ"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "When will the person go shopping?",
+          jp: "その人は いつ かいものに いきますか。",
+        },
+        options: {
+          en: ["Tomorrow", "Today", "Yesterday", "Next week"],
+          jp: ["あした", "きょう", "きのう", "らいしゅう"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Which demonstrative is used to describe an inexpensive watch?",
+          jp: "やすい とけいを せつめいする とき、どの ことばを つかいますか。",
+        },
+        options: {
+          en: ["そんな", "こんな", "どんな", "あんな"],
+          jp: ["そんな", "こんな", "どんな", "あんな"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
