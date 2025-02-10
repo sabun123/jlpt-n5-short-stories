@@ -12,8 +12,47 @@
 <script setup>
 import { createLayout } from "~/composables/useLayout";
 
-// Add useHead composable for Google Analytics
 useHead({
+  title: "JLPT N5 Short Stories - Learn Japanese Vocabulary",
+  meta: [
+    { charset: "utf-8" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      name: "description",
+      content:
+        "Learn JLPT N5 level Japanese vocabulary with interactive short stories. Perfect for English speakers starting their Japanese learning journey.",
+    },
+    { name: "format-detection", content: "telephone=no" },
+    // Robots meta tags
+    { name: "robots", content: "index, follow" },
+    { name: "googlebot", content: "index, follow" },
+    // Open Graph - Facebook
+    {
+      property: "og:title",
+      content: "JLPT N5 Short Stories - Learn Japanese Vocabulary",
+    },
+    {
+      property: "og:description",
+      content:
+        "Learn JLPT N5 level Japanese vocabulary with interactive short stories. Perfect for English speakers starting their Japanese learning journey.",
+    },
+    { property: "og:type", content: "website" },
+    {
+      property: "og:url",
+      content: "https://sabun123.github.io/jlpt-n5-short-stories/",
+    },
+    // Twitter
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "JLPT N5 Short Stories - Learn Japanese Vocabulary",
+    },
+    {
+      name: "twitter:description",
+      content:
+        "Learn JLPT N5 level Japanese vocabulary with interactive short stories.",
+    },
+  ],
   script: [
     {
       src: "https://www.googletagmanager.com/gtag/js?id=G-BG32Y6R7EM",
