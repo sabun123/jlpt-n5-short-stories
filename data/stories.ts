@@ -1216,4 +1216,62 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 12,
+    title: {
+      jp: "たのしい かいもの",
+      en: "Fun Shopping",
+    },
+    content:
+      "どんな 店が すきですか。こんな 店は やすいです。そんな 店は とおいです。あんな 店は おおきいです。きのう、わたしは あたらしい 店に いきませんでした。きょう、ともだちと 店に いきます。らいしゅう、店で はたらきます。",
+    translations: {
+      en: "What kind of shop do you like? This kind of shop is cheap. That kind of shop is far. That shop over there is big. Yesterday, I didn't go to the new shop. Today, I will go to the shop with my friend. Next week, I will work at the shop.",
+    },
+    focusWord: {
+      word: "店",
+      type: "kanji",
+      meaning: {
+        en: "shop, store",
+      },
+    },
+    keywords: ["店", "どんな", "やすい", "とおい", "おおきい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "When will the person work at the shop?",
+          jp: "その人は いつ 店で はたらきますか。",
+        },
+        options: {
+          en: ["Next week", "Yesterday", "Today", "Tomorrow"],
+          jp: ["らいしゅう", "きのう", "きょう", "あした"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Did the person go to the new shop yesterday?",
+          jp: "その人は きのう あたらしい 店に いきましたか。",
+        },
+        options: {
+          en: ["No", "Yes", "Don't know", "Maybe"],
+          jp: ["いいえ", "はい", "わかりません", "たぶん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Who is the person going to the shop with today?",
+          jp: "その人は きょう だれと 店に いきますか。",
+        },
+        options: {
+          en: ["Friend", "Family", "Teacher", "Alone"],
+          jp: ["ともだち", "かぞく", "せんせい", "ひとり"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
