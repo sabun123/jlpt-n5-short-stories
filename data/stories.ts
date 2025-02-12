@@ -1344,4 +1344,79 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 22,
+    title: {
+      jp: "いそがしい いちにち",
+      en: "A Busy Day",
+    },
+    content:
+      "どんな しごとで つかれますか。こんな しごとは とても つかれます。そんな しごとは あまり つかれません。あんな しごとで きのう つかれました。いま、わたしは つかれて います。あした、やすみたいです。まいにち、べんきょうで つかれています。",
+    translations: {
+      en: "What kind of work makes you tired? This kind of work is very tiring. That kind of work is not very tiring. I got tired from that work over there yesterday. Now, I am tired. Tomorrow, I want to rest. Every day, I'm tired from studying.",
+    },
+    focusWord: {
+      word: "つかれる",
+      type: "hiragana",
+      meaning: {
+        en: "to get tired, to become fatigued",
+      },
+    },
+    keywords: ["つかれる", "つかれて", "やすむ", "しごと", "べんきょう"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What makes the person tired every day?",
+          jp: "その人は まいにち なにで つかれていますか。",
+        },
+        options: {
+          en: ["Studying", "Working", "Exercise", "Shopping"],
+          jp: ["べんきょう", "しごと", "うんどう", "かいもの"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What does the person want to do tomorrow?",
+          jp: "その人は あした なにを したいですか。",
+        },
+        options: {
+          en: ["Rest", "Work", "Study", "Exercise"],
+          jp: ["やすむ", "はたらく", "べんきょうする", "うんどうする"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "When did the person get tired from 'that work over there'?",
+          jp: "その人は いつ あんな しごとで つかれましたか。",
+        },
+        options: {
+          en: ["Yesterday", "Today", "Tomorrow", "Every day"],
+          jp: ["きのう", "きょう", "あした", "まいにち"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "How does the person feel now?",
+          jp: "その人は いま どう かんじていますか。",
+        },
+        options: {
+          en: ["Tired", "Happy", "Busy", "Energetic"],
+          jp: [
+            "つかれて います",
+            "うれしいです",
+            "いそがしいです",
+            "げんきです",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
