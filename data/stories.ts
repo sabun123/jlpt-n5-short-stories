@@ -1419,4 +1419,79 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 23,
+    title: {
+      jp: "おかねの つかいかた",
+      en: "How to Use Money",
+    },
+    content:
+      "どんな ものを よく つかいますか。こんな おかねは きょう つかいません。そんな おかねを きのう つかいました。あんな ものを まいにち つかっています。せんしゅう、たくさん おかねを つかいませんでした。らいしゅう、あたらしい でんわを つかいはじめます。",
+    translations: {
+      en: "What kind of things do you often use? I won't use this kind of money today. I used that kind of money yesterday. I use that thing over there every day. Last week, I didn't use much money. Next week, I will start using a new phone.",
+    },
+    focusWord: {
+      word: "つかう",
+      type: "hiragana",
+      meaning: {
+        en: "to use, to spend",
+      },
+    },
+    keywords: ["つかう", "つかいます", "おかね", "でんわ", "もの"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What will the person start using next week?",
+          jp: "その人は らいしゅう なにを つかいはじめますか。",
+        },
+        options: {
+          en: ["New phone", "New money", "New computer", "New car"],
+          jp: [
+            "あたらしい でんわ",
+            "あたらしい おかね",
+            "あたらしい パソコン",
+            "あたらしい くるま",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Did the person use a lot of money last week?",
+          jp: "その人は せんしゅう たくさん おかねを つかいましたか。",
+        },
+        options: {
+          en: ["No", "Yes", "Don't know", "Maybe"],
+          jp: ["いいえ", "はい", "わかりません", "たぶん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "How often does the person use 'that thing over there'?",
+          jp: "その人は あんな ものを どのぐらい つかっていますか。",
+        },
+        options: {
+          en: ["Every day", "Every week", "Every month", "Every year"],
+          jp: ["まいにち", "まいしゅう", "まいつき", "まいとし"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "When did the person use 'that kind of money'?",
+          jp: "その人は いつ そんな おかねを つかいましたか。",
+        },
+        options: {
+          en: ["Yesterday", "Today", "Tomorrow", "Next week"],
+          jp: ["きのう", "きょう", "あした", "らいしゅう"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
