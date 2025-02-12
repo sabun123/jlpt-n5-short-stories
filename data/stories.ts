@@ -1494,4 +1494,79 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 24,
+    title: {
+      jp: "ともだちを よぶ",
+      en: "Inviting Friends",
+    },
+    content:
+      "どんな ともだちを よびたいですか。こんな ともだちを パーティーに よびました。そんな ひとは よびません。あんな せんせいを よんで います。きのう、かぞくを レストランに よびませんでした。らいしゅう、みんなを いえに よぶつもりです。",
+    translations: {
+      en: "What kind of friend do you want to invite? I invited this kind of friend to the party. I won't invite that kind of person. I am calling that teacher over there. Yesterday, I didn't invite my family to the restaurant. Next week, I plan to invite everyone to my house.",
+    },
+    focusWord: {
+      word: "よぶ",
+      type: "hiragana",
+      meaning: {
+        en: "to call, to invite",
+      },
+    },
+    keywords: ["よぶ", "よびます", "パーティー", "レストラン", "みんな"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Where does the person plan to invite everyone?",
+          jp: "その人は みんなを どこに よぶ つもりですか。",
+        },
+        options: {
+          en: ["Home", "Restaurant", "Party", "School"],
+          jp: ["いえ", "レストラン", "パーティー", "がっこう"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Who didn't the person invite to the restaurant yesterday?",
+          jp: "その人は きのう だれを レストランに よびませんでしたか。",
+        },
+        options: {
+          en: ["Family", "Friends", "Teacher", "Everyone"],
+          jp: ["かぞく", "ともだち", "せんせい", "みんな"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Where did the person invite 'this kind of friend'?",
+          jp: "その人は こんな ともだちを どこに よびましたか。",
+        },
+        options: {
+          en: ["Party", "House", "Restaurant", "School"],
+          jp: ["パーティー", "いえ", "レストラン", "がっこう"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "What is the person doing with 'that teacher over there'?",
+          jp: "その人は あんな せんせいを なにを していますか。",
+        },
+        options: {
+          en: [
+            "Calling them",
+            "Inviting them",
+            "Not inviting them",
+            "Planning to invite them",
+          ],
+          jp: ["よんでいます", "よびます", "よびません", "よぶつもりです"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
