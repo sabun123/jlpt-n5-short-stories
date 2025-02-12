@@ -1569,4 +1569,74 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 25,
+    title: {
+      jp: "かえりに よる",
+      en: "Stopping By on the Way Home",
+    },
+    content:
+      "どんな みせに よりますか。こんな コンビニに まいにち よっています。そんな カフェには きのう よりました。あんな スーパーには よりません。せんしゅう、としょかんに よりませんでした。らいしゅう、ともだちの いえに よるつもりです。",
+    translations: {
+      en: "Which stores do you stop by? I stop by this convenience store every day. I stopped by that cafe yesterday. I won't stop by that supermarket over there. Last week, I didn't stop by the library. Next week, I plan to stop by my friend's house.",
+    },
+    focusWord: {
+      word: "よる",
+      type: "hiragana",
+      meaning: {
+        en: "to stop by, to drop in",
+      },
+    },
+    keywords: ["よる", "よります", "コンビニ", "カフェ", "スーパー"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Where does the person stop by every day?",
+          jp: "その人は まいにち どこに よっていますか。",
+        },
+        options: {
+          en: ["Convenience store", "Cafe", "Supermarket", "Library"],
+          jp: ["コンビニ", "カフェ", "スーパー", "としょかん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Where did the person stop by yesterday?",
+          jp: "その人は きのう どこに よりましたか。",
+        },
+        options: {
+          en: ["Cafe", "Convenience store", "Supermarket", "Library"],
+          jp: ["カフェ", "コンビニ", "スーパー", "としょかん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Where is the person planning to stop by next week?",
+          jp: "その人は らいしゅう どこに よるつもりですか。",
+        },
+        options: {
+          en: ["Friend's house", "Convenience store", "Cafe", "Supermarket"],
+          jp: ["ともだちの いえ", "コンビニ", "カフェ", "スーパー"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "Where didn't the person stop by last week?",
+          jp: "その人は せんしゅう どこに よりませんでしたか。",
+        },
+        options: {
+          en: ["Library", "Cafe", "Convenience store", "Friend's house"],
+          jp: ["としょかん", "カフェ", "コンビニ", "ともだちの いえ"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
