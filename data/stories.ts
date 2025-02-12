@@ -1785,4 +1785,74 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 28,
+    title: {
+      jp: "にほんごの べんきょう",
+      en: "Studying Japanese",
+    },
+    content:
+      "どんな にほんごが わかりますか。こんな かんじは よく わかります。そんな ぶんぽうは まだ わかりません。あんな ことばが だんだん わかって きました。きのう、せんせいの せつめいが わかりませんでした。らいしゅうの テストは ぜんぶ わかるつもりです。",
+    translations: {
+      en: "What kind of Japanese do you understand? I understand this kind of kanji well. I don't understand that grammar yet. I gradually came to understand those words over there. Yesterday, I didn't understand the teacher's explanation. I plan to understand everything for next week's test.",
+    },
+    focusWord: {
+      word: "わかる",
+      type: "hiragana",
+      meaning: {
+        en: "to understand, to comprehend",
+      },
+    },
+    keywords: ["わかる", "わかります", "かんじ", "ぶんぽう", "せつめい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What does the person understand well?",
+          jp: "その人は なにが よく わかりますか。",
+        },
+        options: {
+          en: ["This kind of kanji", "Grammar", "Words", "Explanation"],
+          jp: ["こんな かんじ", "ぶんぽう", "ことば", "せつめい"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What doesn't the person understand yet?",
+          jp: "その人は まだ なにが わかりませんか。",
+        },
+        options: {
+          en: ["That grammar", "Kanji", "Test", "Words"],
+          jp: ["そんな ぶんぽう", "かんじ", "テスト", "ことば"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What didn't the person understand yesterday?",
+          jp: "その人は きのう なにが わかりませんでしたか。",
+        },
+        options: {
+          en: ["Teacher's explanation", "Kanji", "Grammar", "Test"],
+          jp: ["せんせいの せつめい", "かんじ", "ぶんぽう", "テスト"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "What has the person gradually come to understand?",
+          jp: "その人は なにが だんだん わかって きましたか。",
+        },
+        options: {
+          en: ["Those words", "Grammar", "Kanji", "Explanation"],
+          jp: ["あんな ことば", "ぶんぽう", "かんじ", "せつめい"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
