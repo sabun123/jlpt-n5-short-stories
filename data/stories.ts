@@ -1709,4 +1709,80 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 27,
+    title: {
+      jp: "わすれもの",
+      en: "Forgotten Things",
+    },
+    content:
+      "どんな ものを よく わすれますか。こんな しゅくだいを きのう わすれました。そんな かばんを いえに わすれています。あんな ほんを よく わすれます。せんしゅう、えいごの じゅぎょうを わすれませんでした。あした、だいじな メールを わすれないように します。",
+    translations: {
+      en: "What kind of things do you often forget? I forgot this kind of homework yesterday. I have forgotten that bag at home. I often forget that book over there. Last week, I didn't forget the English class. Tomorrow, I will make sure not to forget the important email.",
+    },
+    focusWord: {
+      word: "わすれる",
+      type: "hiragana",
+      meaning: {
+        en: "to forget, to leave behind",
+      },
+    },
+    keywords: [
+      "わすれる",
+      "わすれます",
+      "しゅくだい",
+      "じゅぎょう",
+      "わすれもの",
+    ],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What did the person forget yesterday?",
+          jp: "その人は きのう なにを わすれましたか。",
+        },
+        options: {
+          en: ["Homework", "Bag", "Book", "Email"],
+          jp: ["しゅくだい", "かばん", "ほん", "メール"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Where has the person forgotten their bag?",
+          jp: "その人は かばんを どこに わすれていますか。",
+        },
+        options: {
+          en: ["Home", "School", "Station", "Library"],
+          jp: ["いえ", "がっこう", "えき", "としょかん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What didn't the person forget last week?",
+          jp: "その人は せんしゅう なにを わすれませんでしたか。",
+        },
+        options: {
+          en: ["English class", "Homework", "Book", "Bag"],
+          jp: ["えいごの じゅぎょう", "しゅくだい", "ほん", "かばん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "What is the person trying not to forget tomorrow?",
+          jp: "その人は あした なにを わすれないように しますか。",
+        },
+        options: {
+          en: ["Important email", "English class", "Homework", "Book"],
+          jp: ["だいじな メール", "えいごの じゅぎょう", "しゅくだい", "ほん"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
