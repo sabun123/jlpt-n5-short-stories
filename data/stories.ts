@@ -1217,7 +1217,7 @@ export const stories: Story[] = [
     ],
   },
   {
-    id: 12,
+    id: 20,
     title: {
       jp: "たのしい かいもの",
       en: "Fun Shopping",
@@ -1269,6 +1269,76 @@ export const stories: Story[] = [
         options: {
           en: ["Friend", "Family", "Teacher", "Alone"],
           jp: ["ともだち", "かぞく", "せんせい", "ひとり"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
+  {
+    id: 21,
+    title: {
+      jp: "ともだちと 会う",
+      en: "Meeting Friends",
+    },
+    content:
+      "どんな ともだちに 会いたいですか。こんな ともだちに きのう 会いました。そんな ともだちに あした 会いません。あんな ともだちに まいにち 会います。せんしゅう、せんせいに 会いませんでした。らいげつ、かぞくに 会いに いきます。",
+    translations: {
+      en: "What kind of friend do you want to meet? I met this kind of friend yesterday. I won't meet that kind of friend tomorrow. I meet that friend over there every day. Last week, I didn't meet the teacher. Next month, I will go to meet my family.",
+    },
+    focusWord: {
+      word: "会う",
+      type: "kanji",
+      meaning: {
+        en: "to meet, to see (someone)",
+      },
+    },
+    keywords: ["会う", "会いたい", "まいにち", "せんしゅう", "らいげつ"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "When will the person meet their family?",
+          jp: "その人は いつ かぞくに 会いますか。",
+        },
+        options: {
+          en: ["Next month", "Yesterday", "Tomorrow", "Last week"],
+          jp: ["らいげつ", "きのう", "あした", "せんしゅう"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Who didn't the person meet last week?",
+          jp: "その人は せんしゅう だれに 会いませんでしたか。",
+        },
+        options: {
+          en: ["Teacher", "Friend", "Family", "Student"],
+          jp: ["せんせい", "ともだち", "かぞく", "がくせい"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "How often does the person meet 'that friend over there'?",
+          jp: "その人は あんな ともだちに どのぐらい 会いますか。",
+        },
+        options: {
+          en: ["Every day", "Every week", "Every month", "Every year"],
+          jp: ["まいにち", "まいしゅう", "まいつき", "まいとし"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "Which verb form expresses wanting to meet in the text?",
+          jp: "会いたい という ことばは なんの いみですか。",
+        },
+        options: {
+          en: ["Want to meet", "Will meet", "Met", "Don't meet"],
+          jp: ["会いたい", "会います", "会いました", "会いません"],
         },
         correctAnswer: 0,
       },
