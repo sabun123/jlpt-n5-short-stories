@@ -1639,4 +1639,74 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 26,
+    title: {
+      jp: "おくりもの を わたす",
+      en: "Giving Presents",
+    },
+    content:
+      "どんな プレゼントを わたしますか。こんな てがみを せんせいに わたしました。そんな しゅくだいは あした わたします。あんな ほんを ともだちに わたして います。きのう、おかねを わたしませんでした。らいしゅう、カードを かぞくに わたすつもりです。",
+    translations: {
+      en: "What kind of present will you hand over? I handed this kind of letter to the teacher. I will hand in that homework tomorrow. I am handing that book over there to my friend. Yesterday, I didn't hand over the money. Next week, I plan to give cards to my family.",
+    },
+    focusWord: {
+      word: "わたす",
+      type: "hiragana",
+      meaning: {
+        en: "to hand over, to give, to pass",
+      },
+    },
+    keywords: ["わたす", "わたします", "てがみ", "しゅくだい", "プレゼント"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What did the person hand over to the teacher?",
+          jp: "その人は せんせいに なにを わたしましたか。",
+        },
+        options: {
+          en: ["Letter", "Homework", "Book", "Money"],
+          jp: ["てがみ", "しゅくだい", "ほん", "おかね"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What will the person hand over tomorrow?",
+          jp: "その人は あした なにを わたしますか。",
+        },
+        options: {
+          en: ["Homework", "Letter", "Book", "Card"],
+          jp: ["しゅくだい", "てがみ", "ほん", "カード"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "To whom is the person handing over the book?",
+          jp: "その人は だれに ほんを わたして いますか。",
+        },
+        options: {
+          en: ["Friend", "Teacher", "Family", "Student"],
+          jp: ["ともだち", "せんせい", "かぞく", "がくせい"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 4,
+        question: {
+          en: "What does the person plan to give to their family next week?",
+          jp: "その人は らいしゅう かぞくに なにを わたすつもりですか。",
+        },
+        options: {
+          en: ["Cards", "Books", "Letters", "Money"],
+          jp: ["カード", "ほん", "てがみ", "おかね"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
