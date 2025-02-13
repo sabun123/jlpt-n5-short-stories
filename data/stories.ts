@@ -2288,4 +2288,67 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 35,
+    title: {
+      jp: "でんきの スイッチ",
+      en: "The Light Switch",
+    },
+    content:
+      "まいばん わたしは でんきを つけます。きのうは エアコンを つけませんでした。いま テレビを つけています。あとで ヒーターを つけるつもりです。でんきが ついていないへやは とても くらいです。",
+    translations: {
+      en: "Every night I turn on the lights. Yesterday I didn't turn on the air conditioner. Now I'm turning on the TV. Later I plan to turn on the heater. A room without the lights turned on is very dark.",
+    },
+    focusWord: {
+      word: "つける",
+      type: "hiragana",
+      meaning: {
+        en: "to turn on, to switch on",
+      },
+    },
+    keywords: ["つける", "でんき", "テレビ", "へや"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What does the speaker turn on every night?",
+          jp: "はなしている ひとは まいばん なにを つけますか。",
+        },
+        options: {
+          en: ["Lights", "TV", "Air conditioner", "Heater"],
+          jp: ["でんき", "テレビ", "エアコン", "ヒーター"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What are they turning on now?",
+          jp: "いま なにを つけていますか。",
+        },
+        options: {
+          en: ["TV", "Lights", "Heater", "Air conditioner"],
+          jp: ["テレビ", "でんき", "ヒーター", "エアコン"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "How is a room without lights turned on?",
+          jp: "でんきが ついていない へやは どうですか。",
+        },
+        options: {
+          en: ["Very dark", "Very bright", "Very cold", "Very hot"],
+          jp: [
+            "とても くらい",
+            "とても あかるい",
+            "とても さむい",
+            "とても あつい",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
