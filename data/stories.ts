@@ -2147,4 +2147,67 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 33,
+    title: {
+      jp: "りょうりの じかん",
+      en: "Cooking Time",
+    },
+    content:
+      "わたしは まいにち ごはんを つくります。きのうは カレーを つくりましたが、おいしくなかったです。あしたは パンを つくるつもりです。いまは ケーキを つくっています。らいしゅうは なにも つくりません。",
+    translations: {
+      en: "I make meals every day. Yesterday I made curry, but it wasn't delicious. Tomorrow I plan to make bread. Now I'm making a cake. Next week I won't make anything.",
+    },
+    focusWord: {
+      word: "つくる",
+      type: "hiragana",
+      meaning: {
+        en: "to make, to create",
+      },
+    },
+    keywords: ["つくる", "りょうり", "ごはん", "おいしい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What did they make yesterday?",
+          jp: "きのう なにを つくりましたか。",
+        },
+        options: {
+          en: ["Curry", "Bread", "Cake", "Rice"],
+          jp: ["カレー", "パン", "ケーキ", "ごはん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What are they making now?",
+          jp: "いま なにを つくっていますか。",
+        },
+        options: {
+          en: ["Cake", "Curry", "Bread", "Nothing"],
+          jp: ["ケーキ", "カレー", "パン", "なにも"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "How was the curry they made?",
+          jp: "つくった カレーは どうでしたか。",
+        },
+        options: {
+          en: ["Not delicious", "Delicious", "Very delicious", "We don't know"],
+          jp: [
+            "おいしくなかったです",
+            "おいしかったです",
+            "とても おいしかったです",
+            "わかりません",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
