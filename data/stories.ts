@@ -1855,4 +1855,87 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 29,
+    title: {
+      jp: "おんがくの せんせい",
+      en: "The Music Teacher",
+    },
+    content:
+      "わたしは おんがくの せんせいです。まいにち がっこうで うたうことを おしえています。きのう、せいとたちは うたいませんでした。あしたは みんなで たのしく うたうでしょう。いまは あたらしい うたを ならっています。",
+    translations: {
+      en: "I am a music teacher. Every day I teach singing at school. Yesterday, the students did not sing. Tomorrow, everyone will sing happily together. Now, we are learning a new song.",
+    },
+    focusWord: {
+      word: "うたう",
+      type: "kanji",
+      meaning: {
+        en: "to sing",
+      },
+    },
+    keywords: ["うたう", "おしえる", "がっこう", "せんせい"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What is the person's job?",
+          jp: "その人の しごとは なんですか。",
+        },
+        options: {
+          en: ["Music teacher", "Math teacher", "Student", "Doctor"],
+          jp: [
+            "おんがくの せんせい",
+            "さんすうの せんせい",
+            "せいと",
+            "いしゃ",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Did the students sing yesterday?",
+          jp: "きのう せいとたちは うたいましたか。",
+        },
+        options: {
+          en: [
+            "No, they didn't",
+            "Yes, they did",
+            "We don't know",
+            "They sang today",
+          ],
+          jp: [
+            "いいえ、うたいませんでした",
+            "はい、うたいました",
+            "わかりません",
+            "きょう うたいました",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What are they doing now?",
+          jp: "いま なにを していますか。",
+        },
+        options: {
+          en: [
+            "Learning a new song",
+            "Teaching math",
+            "Going home",
+            "Reading a book",
+          ],
+          jp: [
+            "あたらしい うたを ならっています",
+            "さんすうを おしえています",
+            "いえに かえっています",
+            "ほんを よんでいます",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
