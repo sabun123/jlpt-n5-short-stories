@@ -26,6 +26,13 @@
           >
             <UIcon name="i-simple-icons-linkedin" />
           </a>
+          <a
+            href="https://buymeacoffee.com/yusufismail"
+            class="text-gray-600 dark:text-gray-400 hover:text-primary-500"
+            target="_blank"
+          >
+            <UIcon name="i-simple-icons-buymeacoffee" />
+          </a>
         </div>
       </div>
     </UContainer>
