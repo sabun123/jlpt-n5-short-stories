@@ -2210,4 +2210,82 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 34,
+    title: {
+      jp: "がっこうまでの みち",
+      en: "The Way to School",
+    },
+    content:
+      "わたしは まいあさ はちじに がっこうに つきます。きのうは でんしゃが おくれて、くじに つきました。あしたは はやく つくつもりです。いま バスに のっていますが、まだ つきません。ともだちは もう つきました。",
+    translations: {
+      en: "I arrive at school at 8 o'clock every morning. Yesterday, because the train was delayed, I arrived at 9 o'clock. Tomorrow I plan to arrive early. I'm on the bus now, but haven't arrived yet. My friend has already arrived.",
+    },
+    focusWord: {
+      word: "つく",
+      type: "hiragana",
+      meaning: {
+        en: "to arrive, to reach",
+      },
+    },
+    keywords: ["つく", "がっこう", "でんしゃ", "バス"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What time does the speaker usually arrive at school?",
+          jp: "はなしている ひとは いつも なんじに がっこうに つきますか。",
+        },
+        options: {
+          en: ["8 o'clock", "9 o'clock", "7 o'clock", "10 o'clock"],
+          jp: ["はちじ", "くじ", "しちじ", "じゅうじ"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Why did they arrive late yesterday?",
+          jp: "きのう どうして おそく つきましたか。",
+        },
+        options: {
+          en: [
+            "The train was delayed",
+            "The bus was late",
+            "They woke up late",
+            "They missed the train",
+          ],
+          jp: [
+            "でんしゃが おくれました",
+            "バスが おくれました",
+            "おそく おきました",
+            "でんしゃに のりませんでした",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Has their friend arrived yet?",
+          jp: "ともだちは もう つきましたか。",
+        },
+        options: {
+          en: [
+            "Yes, they have already arrived",
+            "No, they haven't arrived yet",
+            "They are on the bus",
+            "We don't know",
+          ],
+          jp: [
+            "はい、もう つきました",
+            "いいえ、まだ ついていません",
+            "バスに のっています",
+            "わかりません",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
