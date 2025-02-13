@@ -1938,4 +1938,67 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 30,
+    title: {
+      jp: "やおやさん",
+      en: "The Greengrocer",
+    },
+    content:
+      "わたしの ちかくに やおやさんが あります。まいにち やさいを うっています。きのうは とまとを たくさん うりました。あしたは やすみなので なにも うりません。らいねんは あたらしい みせを つくるでしょう。",
+    translations: {
+      en: "There is a greengrocer near my place. They sell vegetables every day. Yesterday, they sold many tomatoes. Tomorrow is a holiday so they won't sell anything. Next year, they will probably make a new shop.",
+    },
+    focusWord: {
+      word: "うる",
+      type: "kanji",
+      meaning: {
+        en: "to sell",
+      },
+    },
+    keywords: ["うる", "やおや", "やさい", "みせ"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "What kind of shop is it?",
+          jp: "どんな みせですか。",
+        },
+        options: {
+          en: ["Vegetable shop", "Book shop", "Fish shop", "Clothing shop"],
+          jp: ["やおやさん", "ほんやさん", "さかなやさん", "ようふくやさん"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "What did they sell a lot of yesterday?",
+          jp: "きのう なにを たくさん うりましたか。",
+        },
+        options: {
+          en: ["Tomatoes", "Potatoes", "Carrots", "Onions"],
+          jp: ["とまと", "じゃがいも", "にんじん", "たまねぎ"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Why won't they sell anything tomorrow?",
+          jp: "あした なぜ なにも うりませんか。",
+        },
+        options: {
+          en: ["It's a holiday", "No vegetables", "Shop is broken", "Too busy"],
+          jp: [
+            "やすみです",
+            "やさいが ありません",
+            "みせが こわれています",
+            "いそがしいです",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
