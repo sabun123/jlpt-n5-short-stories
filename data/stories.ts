@@ -2001,4 +2001,62 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 31,
+    title: {
+      jp: "かぞくの にゅーす",
+      en: "Family News",
+    },
+    content:
+      "わたしは とうきょうで 生まれました。いもうとは おおさかで 生まれています。らいげつ あたらしい あかちゃんが 生まれます。きょねんは だれも 生まれませんでした。いとこは にほんで 生まれて、いまは アメリカに すんでいます。",
+    translations: {
+      en: "I was born in Tokyo. My younger sister was born in Osaka. Next month, a new baby will be born. Last year, no one was born. My cousin was born in Japan, and now lives in America.",
+    },
+    focusWord: {
+      word: "生まれる",
+      type: "kanji",
+      meaning: {
+        en: "to be born",
+      },
+    },
+    keywords: ["生まれる", "あかちゃん", "いもうと", "いとこ"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Where was the speaker born?",
+          jp: "はなしている ひとは どこで 生まれましたか。",
+        },
+        options: {
+          en: ["Tokyo", "Osaka", "America", "We don't know"],
+          jp: ["とうきょう", "おおさか", "アメリカ", "わかりません"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "When will the new baby be born?",
+          jp: "あたらしい あかちゃんは いつ 生まれますか。",
+        },
+        options: {
+          en: ["Next month", "Last year", "Tomorrow", "Yesterday"],
+          jp: ["らいげつ", "きょねん", "あした", "きのう"],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "Where does the cousin live now?",
+          jp: "いとこは いま どこに すんでいますか。",
+        },
+        options: {
+          en: ["America", "Japan", "Tokyo", "Osaka"],
+          jp: ["アメリカ", "にほん", "とうきょう", "おおさか"],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
