@@ -2059,4 +2059,92 @@ export const stories: Story[] = [
       },
     ],
   },
+  {
+    id: 32,
+    title: {
+      jp: "わたしの しごと",
+      en: "My Work",
+    },
+    content:
+      "わたしは ぎんこうで つとめています。ともだちは びょういんで つとめていました。せんしゅうまで レストランで つとめましたが、いまは つとめていません。らいねんから あたらしい かいしゃで つとめるつもりです。",
+    translations: {
+      en: "I work at a bank. My friend used to work at a hospital. I worked at a restaurant until last week, but I'm not working now. I plan to work at a new company from next year.",
+    },
+    focusWord: {
+      word: "つとめる",
+      type: "hiragana",
+      meaning: {
+        en: "to work (for an organization)",
+      },
+    },
+    keywords: ["つとめる", "ぎんこう", "びょういん", "かいしゃ"],
+    questions: [
+      {
+        id: 1,
+        question: {
+          en: "Where does the speaker work now?",
+          jp: "はなしている ひとは いま どこで つとめていますか。",
+        },
+        options: {
+          en: [
+            "At a bank",
+            "At a hospital",
+            "At a restaurant",
+            "Not working now",
+          ],
+          jp: [
+            "ぎんこうで",
+            "びょういんで",
+            "レストランで",
+            "いま つとめていません",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 2,
+        question: {
+          en: "Where did their friend work?",
+          jp: "ともだちは どこで つとめていましたか。",
+        },
+        options: {
+          en: [
+            "At a hospital",
+            "At a bank",
+            "At a restaurant",
+            "At a new company",
+          ],
+          jp: [
+            "びょういんで",
+            "ぎんこうで",
+            "レストランで",
+            "あたらしい かいしゃで",
+          ],
+        },
+        correctAnswer: 0,
+      },
+      {
+        id: 3,
+        question: {
+          en: "What are the speaker's future plans?",
+          jp: "はなしている ひとは これから なにを するつもりですか。",
+        },
+        options: {
+          en: [
+            "Work at a new company",
+            "Continue at the bank",
+            "Return to the restaurant",
+            "Work at a hospital",
+          ],
+          jp: [
+            "あたらしい かいしゃで つとめる",
+            "ぎんこうで つづける",
+            "レストランに もどる",
+            "びょういんで つとめる",
+          ],
+        },
+        correctAnswer: 0,
+      },
+    ],
+  },
 ];
